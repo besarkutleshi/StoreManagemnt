@@ -14,6 +14,8 @@ class Collaboration{
         }
     }
 
+    //mundohu me kriju ni metod per me dergu requesta ni metod te perbashkt qe e kryn punen me ni rresht veq return qajo metod me parametra
+
     async deleteCollaboration(id){
         try {
             let response = await axios.get(Helper.url + `deleteCollaboration/${id}`,Helper.config);
@@ -113,5 +115,56 @@ class Collaboration{
             return false;
         }
     }
+
+    async insertEP(obj){
+        try {
+            let response = await axios.post(Helper.url + 'insertEP',obj,Helper.config);
+            return Helper.response(response);
+        } catch (error) {
+            ErrorAlert(error.message);
+            return false;
+        }
+    }
+
+    async deleteEmployee(id){
+        try {
+            let response = await axios.get(Helper.url + `deleteEP/${id}`);
+            return Helper.response(response);
+        } catch (error) {
+            ErrorAlert(error.message);
+            return false;
+        }
+    }
+
+    async updateEmployee(obj){
+        try {
+            let response = await axios.post(Helper.url + 'updateEP',obj,Helper.config);
+            return Helper.response(response);
+        } catch (error) {
+            ErrorAlert(error.message);
+            return false;
+        }
+    }
+
+    async getEPs(){
+        try {
+            let response = await axios.get(Helper.url + 'getEP',Helper.config);
+            return response.data;
+        } catch (error) {
+            ErrorAlert(error.message);
+            return false;
+        }
+    }
+
+    async getEP(id){
+        try {
+            let response = await axios.get(Helper.url + `getEP/${id}`);
+            return response.data;
+        } catch (error) {
+            ErrorAlert(error.message);
+            return false;
+        }
+    }
+
 }
 export default new Collaboration();
