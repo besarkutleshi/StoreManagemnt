@@ -1,14 +1,18 @@
-
+import $ from 'jquery'
 class Helper{
+
     constructor(){
-        sessionStorage.setItem("User",JSON.stringify({Token:''}));
         this.config = {
             headers: {
-                Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("User")).Token}`
+                Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("User")) ? JSON.parse(sessionStorage.getItem("User")).token : ''}`
             }
         }
-        this.url = 'https://localhost:5001/api/business/'
+        this.url = 'https://localhost:44355/api/'
+        this.showF = false
+        this.showS = false
     }
+
+    
 
     
     response(response){
@@ -16,6 +20,15 @@ class Helper{
             return true;
         }
         return response.data;
+    }
+
+    changeKeys = (array) => {
+        let newarray = [];
+        array.forEach(element => {
+            let obj = {Description:element.description,IsSelected:element.isSelected,Role:null,User:null,RoleID:element.roleID,UserID:element.userID};
+            newarray.push(obj);
+        });
+        return newarray;
     }
 }
 

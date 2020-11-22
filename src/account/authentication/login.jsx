@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import '../css/login.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import authentication from './authentication.controller'
+import { Redirect } from 'react-router-dom'
 
 export class Login extends Component {
 
@@ -23,7 +24,7 @@ export class Login extends Component {
         event.preventDefault();
         let result = await authentication.login({Username:this.state.Username,Password:this.state.Password,BusinessCode:this.state.BusinessCode});
         if(result === true){
-            //redirect te faqja kryesore
+            window.location = "roles"
         }
     }
 
@@ -41,8 +42,8 @@ export class Login extends Component {
                                 <form class="form-signin" method="post" onSubmit={this.handleLogin}>
 
                                     <div class="form-label-group">
-                                        <input type="email" id="inputEmail" class="form-control" placeholder="Email address"
-                                            value={this.state.Username} onChange={this.handleUsername} autofocus required />
+                                        <input type="text" id="inputEmail" class="form-control" placeholder="Email address"
+                                            value={this.state.Username} onChange={this.handleUsername} autoFocus required />
                                         <label for="inputEmail">Email address</label>
                                     </div>
 

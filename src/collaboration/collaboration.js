@@ -6,7 +6,7 @@ class Collaboration{
 
     async insertCollaboration(obj){
         try {
-            let response = await axios.post(Helper.url + 'insertCollaboration',obj,Helper.config);
+            let response = await axios.post(Helper.url + 'collaboration/insertCollaboration',obj,Helper.config);
             return Helper.response(response);
         } catch (error) {
             ErrorAlert(error.message);
@@ -18,7 +18,7 @@ class Collaboration{
 
     async deleteCollaboration(id){
         try {
-            let response = await axios.get(Helper.url + `deleteCollaboration/${id}`,Helper.config);
+            let response = await axios.get(Helper.url + `collaboration/deleteCollaboration/${id}`,Helper.config);
             return Helper.response(response);
         } catch (error) {
             ErrorAlert(error.message);
@@ -28,7 +28,7 @@ class Collaboration{
 
     async updateCollaboration(obj){
         try {
-            let response = await axios.post(Helper.url + 'updateCollaboration',obj,Helper.config);
+            let response = await axios.post(Helper.url + 'collaboration/updateCollaboration',obj,Helper.config);
             return Helper.response(response);
         } catch (error) {
             ErrorAlert(error.message);
@@ -38,7 +38,7 @@ class Collaboration{
 
     async getCollaborations(){
         try {
-            let response = await axios.get(Helper.url + 'getCollaborations',Helper.config);
+            let response = await axios.get(Helper.url + 'collaboration/getCollaborations',Helper.config);
             return response.data;
         } catch (error) {
             ErrorAlert(error.message);
@@ -48,7 +48,7 @@ class Collaboration{
 
     async getCollaboration(id){
         try {
-            let response = await axios.get(Helper.url + `getCollaboration/${id}`,Helper.config);
+            let response = await axios.get(Helper.url + `collaboration/getCollaboration/${id}`,Helper.config);
             return response.data;
         } catch (error) {
             ErrorAlert(error.message);
@@ -58,7 +58,7 @@ class Collaboration{
 
     async insertEmployee(obj){
         try {
-            let response = await axios.post(Helper.url + 'insertEmployee',obj,Helper.config);
+            let response = await axios.post(Helper.url + 'collaboration/insertEmployee',obj,Helper.config);
             return Helper.response(response);
         } catch (error) {
             ErrorAlert(error.message);
@@ -68,7 +68,7 @@ class Collaboration{
 
     async deleteEmployee(id){
         try {
-            let response = await axios.get(Helper.url + `deleteEmployee/${id}`);
+            let response = await axios.get(Helper.url + `collaboration/deleteEmployee/${id}`);
             return Helper.response(response);
         } catch (error) {
             ErrorAlert(error.message);
@@ -78,7 +78,7 @@ class Collaboration{
 
     async updateEmployee(obj){
         try {
-            let response = await axios.post(Helper.url + 'updateEmployee',obj,Helper.config);
+            let response = await axios.post(Helper.url + 'collaboration/updateEmployee',obj,Helper.config);
             return Helper.response(response);
         } catch (error) {
             ErrorAlert(error.message);
@@ -88,7 +88,7 @@ class Collaboration{
 
     async getEmployees(){
         try {
-            let response = await axios.get(Helper.url + 'getEmployees',Helper.config);
+            let response = await axios.get(Helper.url + 'collaboration/getEmployees',Helper.config);
             return response.data;
         } catch (error) {
             ErrorAlert(error.message);
@@ -98,7 +98,7 @@ class Collaboration{
 
     async getEmployeeById(id){
         try {
-            let response = await axios.get(Helper.url + `getEmployee/${id}`);
+            let response = await axios.get(Helper.url + `collaboration/getEmployee/${id}`);
             return response.data;
         } catch (error) {
             ErrorAlert(error.message);
@@ -108,7 +108,7 @@ class Collaboration{
     
     async getEmployeeByName(name){
         try {
-            let response = await axios.get(Helper.url + `getEmployee/${name}`);
+            let response = await axios.get(Helper.url + `collaboration/getEmployee/${name}`);
             return response.data;
         } catch (error) {
             ErrorAlert(error.message);
@@ -118,7 +118,7 @@ class Collaboration{
 
     async insertEP(obj){
         try {
-            let response = await axios.post(Helper.url + 'insertEP',obj,Helper.config);
+            let response = await axios.post(Helper.url + 'collaboration/insertEP',obj,Helper.config);
             return Helper.response(response);
         } catch (error) {
             ErrorAlert(error.message);
@@ -128,7 +128,7 @@ class Collaboration{
 
     async deleteEmployee(id){
         try {
-            let response = await axios.get(Helper.url + `deleteEP/${id}`);
+            let response = await axios.get(Helper.url + `collaboration/deleteEP/${id}`);
             return Helper.response(response);
         } catch (error) {
             ErrorAlert(error.message);
@@ -138,7 +138,7 @@ class Collaboration{
 
     async updateEmployee(obj){
         try {
-            let response = await axios.post(Helper.url + 'updateEP',obj,Helper.config);
+            let response = await axios.post(Helper.url + 'collaboration/updateEP',obj,Helper.config);
             return Helper.response(response);
         } catch (error) {
             ErrorAlert(error.message);
@@ -148,7 +148,7 @@ class Collaboration{
 
     async getEPs(){
         try {
-            let response = await axios.get(Helper.url + 'getEP',Helper.config);
+            let response = await axios.get(Helper.url + 'collaboration/getEP',Helper.config);
             return response.data;
         } catch (error) {
             ErrorAlert(error.message);
@@ -158,7 +158,7 @@ class Collaboration{
 
     async getEP(id){
         try {
-            let response = await axios.get(Helper.url + `getEP/${id}`);
+            let response = await axios.get(Helper.url + `collaboration/getEP/${id}`);
             return response.data;
         } catch (error) {
             ErrorAlert(error.message);

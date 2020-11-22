@@ -1,22 +1,13 @@
 import axios from 'axios'
+import Helper from '../../Helper.js'
 class Authentication{
 
-    constructor(){
-        sessionStorage.setItem("User",JSON.stringify({Token:''}));
-        this.config = {
-            headers: {
-                Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("User")).Token}`
-            }
-        }
-        this.url = 'https://localhost:5001/api/authentication/'
-    }
 
     async login(loginModel){
         try {
-            let result = await axios.post(this.url + 'login',loginModel);
+            let result = await axios.post(Helper.url + 'authentication/login',loginModel);
             if(result.status === 200){
                 let user = result.data;
-                sessionStorage.clear();
                 sessionStorage.setItem("User",JSON.stringify(user));
                 return true;
             }
@@ -29,7 +20,7 @@ class Authentication{
 
     async selfRegister(registerModel){
         try {
-            let result = await axios.post(this.url + 'register',registerModel);
+            let result = await axios.post(Helper.url + 'authentication/register',registerModel);
             if(result.status === 200){
                 let user = result.data;
                 sessionStorage.clear();
@@ -44,7 +35,7 @@ class Authentication{
 
     async registerUser(registerUser){
         try {
-            let result = await axios.post(this.url + 'registerUser',registerUser,this.config);
+            let result = await axios.post(Helper.url + 'authentication/registerUser',registerUser,Helper.config);
             if(result.status === 200){
                 return true;
             }
@@ -57,6 +48,15 @@ class Authentication{
     async logOut(){
         sessionStorage.clear();
         window.location = 'login';
+    }
+
+    getUsers = async () => {
+        try {
+            let response = await axios.get(Helper.url + 'authentication/getUsers',Helper.config);
+            return response.data;
+        } catch (error) {
+            return false;
+        }
     }
 }
 

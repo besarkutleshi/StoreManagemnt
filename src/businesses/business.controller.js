@@ -1,20 +1,11 @@
 import axios from 'axios'
-
+import Helper from '../Helper'
 class BusinessController{
 
-    constructor(){
-        sessionStorage.setItem("User",JSON.stringify({Token:''}));
-        this.config = {
-            headers: {
-                Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("User")).Token}`
-            }
-        }
-        this.url = 'https://localhost:5001/api/business/'
-    }
 
     async selfRegister(business){
         try {
-            let response = await axios.post(this.url + 'registerBusiness',business);
+            let response = await axios.post(Helper.url + 'business/registerBusiness',business);
             if(response.status === 200){
                 return true;
             }
