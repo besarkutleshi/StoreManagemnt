@@ -7,10 +7,16 @@ class Helper{
                 Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("User")) ? JSON.parse(sessionStorage.getItem("User")).token : ''}`
             }
         }
-        this.url = 'https://localhost:44355/api/'
-        this.showF = false
-        this.showS = false
+        this.url = 'https://localhost:44355/api/';
+        this.showF = false;
+        this.showS = false;
     }
+
+    
+    handleShow = () => this.ShowF = true;
+    handleClose = () => this.ShowF = false;
+    handleShowS = () => this.ShowS = true;
+    handleCloseS = () => this.ShowS = false;
 
     
 

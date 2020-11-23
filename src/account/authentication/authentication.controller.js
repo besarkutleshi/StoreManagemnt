@@ -8,6 +8,7 @@ class Authentication{
             let result = await axios.post(Helper.url + 'authentication/login',loginModel);
             if(result.status === 200){
                 let user = result.data;
+                sessionStorage.clear();
                 sessionStorage.setItem("User",JSON.stringify(user));
                 return true;
             }
@@ -54,6 +55,25 @@ class Authentication{
         try {
             let response = await axios.get(Helper.url + 'authentication/getUsers',Helper.config);
             return response.data;
+        } catch (error) {
+            return false;
+        }
+    }
+
+    updateUser = async (obj) => {
+        try {
+            console.log(obj);
+            let response = await axios.post(Helper.url + 'authentication/updateUser',obj,Helper.config);
+            return Helper.response(response);
+        } catch (error) {
+            return false;
+        }
+    }
+
+    deleteUser = async (id) => {
+        try {
+            let response = await axios.delete(Helper.url + `authentication/deleteUser/${id}`,Helper.config);
+            return Helper.response(response);
         } catch (error) {
             return false;
         }

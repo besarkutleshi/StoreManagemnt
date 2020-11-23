@@ -96,6 +96,8 @@ export class Role extends Component {
         if(result){
             SuccessAlert(`Update Successful`);
             window.location.reload();
+        }else{
+            ErrorAlert("Something went wrong");
         }
     }
     deleteRole = async (id) => {

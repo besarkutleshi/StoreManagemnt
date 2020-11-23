@@ -10,6 +10,10 @@ import {users} from 'react-icons-kit/icomoon/users'
 import {close} from 'react-icons-kit/fa/close'
 import { Modal } from 'react-bootstrap'
 import SuccessAlert from '../../../SuccessAlert'
+import collaboration from '../../../collaboration/collaboration.js'
+import authorize from '../../authorization/controllers/authorization.controller'
+import ErrorAlert from '../../../ErrorAlert'
+import Swal from 'sweetalert2'
 export class UserList extends Component {
 
     constructor(props) {
@@ -19,6 +23,8 @@ export class UserList extends Component {
             Users:[],
             IsLoading:false,
             Show:false,
+            ShowS:false,
+            ID:'',
             Username:'',
             Employees:[],
             EmployeeID:0,
@@ -27,6 +33,8 @@ export class UserList extends Component {
             Description:'',
             Password:'',
             Submit : 'Register',
+            BusinessCode:'',
+            UserRoles:[]
         }
     }
 
@@ -35,8 +43,11 @@ export class UserList extends Component {
     handleDescription = event => this.setState({Description:event.target.value});
     handleEmployeeID = event => this.setState({EmployeeID:event.target.value});
     handleRoleID = event => this.setState({RoleID:event.target.value});
-    handleShow = () => this.setState({Show:true})
-    handleClose = () => this.setState({Show:false,Username:'',Password:'',Description:''})
+    
+    handleShow = () => this.setState({Show:true});
+    handleClose = () => this.setState({Show:false,Username:'',Password:'',Description:''});
+    handleShowS = () => this.setState({ShowS:true})
+    handleCloseS = () => this.setState({ShowS:false})
 
     getUsers = async () =>{
         this.setState({IsLoading:true})
@@ -47,17 +58,103 @@ export class UserList extends Component {
         }
     }
 
+    getEmployees = async () => {
+        let result = await collaboration.getEmployees();
+        if(result){
+            this.setState({Employees:result});
+        }
+        let roles = await authorize.getRoles();
+        if(roles){
+            this.setState({Roles:roles});
+        }
+    }
+
+    getUserRoles = async (userid) => {
+        let result = await authorize.getUserRoles(userid);
+        console.log(result);
+        if(result){
+            this.setState({UserRoles:result});
+            this.setState({ShowS:true})
+        }
+    }
+
     componentDidMount = async () => {
         await this.getUsers();
+        await this.getEmployees();
     }
 
     registerSubmit = async event =>{
         event.preventDefault();
-        let result = await authentication.registerUser({EmployeeID:this.state.EmployeeID,RoleID:this.state.RoleID,
-            Username:this.state.Username,Password:this.state.Password,Description:this.state.Description});
+        let result = this.state.Submit === "Register" ?
+        await authentication.registerUser({EmployeeID:this.state.EmployeeID,RoleID:this.state.RoleID,
+            Username:this.state.Username,Password:this.state.Password,Description:this.state.Description}) : 
+        await authentication.updateUser({ID:this.state.ID,EmployeeID:this.state.EmployeeID,RoleID:this.state.RoleID,
+            UserName:this.state.Username,Password:this.state.Password,Description:this.state.Description});
         if(result){
             SuccessAlert("Register Successful");
             window.location = ""
+        }
+    }
+    
+    updateModal = (id) => {
+        let user = this.state.Users.filter(r => r.id === id);
+        this.setState({
+            Submit:'Update',
+            ID:user[0].id,
+            Username:user[0].userName,
+            Password:user[0].password,
+            Description:user[0].description,
+            EmployeeID:user[0].employeeID,
+            RoleID:user[0].roleID,
+            Show:true
+        })
+    }
+
+    handleCheckChieldElement = (event) => {
+        let userrole = this.state.UserRoles
+        userrole.forEach(ur => {
+           if (ur.role.id.toString() === event.target.value.toString()){
+                ur.isSelected =  event.target.checked
+                document.getElementById(ur.role.id).checked = event.target.checked;
+           }
+        })
+        this.setState({UserRoles: userrole})
+    }
+
+    updateUserRoles = async event => {
+        event.preventDefault();
+        let result = await authorize.insertUserRole(Helper.changeKeys(this.state.UserRoles));
+        if(result){
+            SuccessAlert(`Update Successful`);
+            window.location.reload();
+        }else{
+            ErrorAlert("Something went wrong");
+        }
+    }
+
+    deleteUser = async (id) => {
+        let result = await Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        });
+
+        if(result.isConfirmed){
+            let response = await authentication.deleteUser(id);
+            if(response){
+                Swal.fire(
+                  'Deleted!',
+                  'Change has been deleted.',
+                  'success'
+                );
+                window.location.reload();
+            }else{
+                ErrorAlert(response.Error);
+            }
         }
     }
     
@@ -90,9 +187,9 @@ export class UserList extends Component {
                                     this.state.Users.map(u => {
                                         let array = [
                                             u.id,u.employee.name,u.userName,u.businessCode,u.role.name,u.description,
-                                            <Button className="btn btn-dark">Roles <Icon icon={users}/></Button>,
-                                            <button className="btn btn-primary">Update <Icon icon={checkSquareO}/></button>,
-                                            <button className="btn btn-danger">Delete <Icon icon={trashO}/></button>
+                                            <button onClick={this.getUserRoles.bind(this,u.id)} className="btn btn-dark">Roles <Icon icon={users}/></button>,
+                                            <button onClick={this.updateModal.bind(this,u.id)} className="btn btn-primary">Update <Icon icon={checkSquareO}/></button>,
+                                            <button onClick={this.deleteUser.bind(this,u.id)} className="btn btn-danger">Delete <Icon icon={trashO}/></button>
                                         ]
                                         return array
                                     })
@@ -110,7 +207,7 @@ export class UserList extends Component {
                             >
                             <Modal.Header closeButton>
                                 <Modal.Title id="contained-modal-title-vcenter">
-                                    Register User
+                                    {`${this.state.Submit} User`}
                                 </Modal.Title>
                             </Modal.Header>
                             <form id="myForm" method="post" onSubmit={this.registerSubmit}>
@@ -134,7 +231,7 @@ export class UserList extends Component {
                                                     {
                                                         this.state.Employees.map(emp => {
                                                             return(
-                                                                <option value={emp.id}>{emp.name}</option>
+                                                                <option value={emp.id}>{emp.name} {emp.surname}</option>
                                                             )
                                                         })
                                                     }
@@ -166,6 +263,48 @@ export class UserList extends Component {
                                 <Modal.Footer>
                                     <button id="submit" type="submit" className="float-left btn btn-primary">{this.state.Submit} <Icon icon={checkSquareO}></Icon></button>
                                     <Button className="btn btn-danger" onClick={this.handleClose}>Close <Icon icon={close} style={{marginTop:"-10px"}}></Icon></Button>
+                                </Modal.Footer>
+                            </form>
+                    </Modal>
+                </div>
+
+                <div className="row">
+                        <Modal show={this.state.ShowS} onHide={this.handleCloseS}
+                            size="lg"
+                            aria-labelledby="contained-modal-title-vcenter"
+                            centered
+                            >
+                            <Modal.Header closeButton>
+                                <Modal.Title id="contained-modal-title-vcenter">
+                                    User Roles
+                                </Modal.Title>
+                            </Modal.Header>
+                            <form id="myForm" method="post" onSubmit={this.updateUserRoles}>
+                                <Modal.Body>
+                                    <div className="container-fluid">
+                                        <div className="row">
+                                            {
+                                                this.state.UserRoles.map(ur => {
+                                                    return(
+                                                        <div className="col-sm-12">
+                                                            <div className="form-check">
+                                                                <input id={ur.role.id} type="checkbox" className="form-check-input mt-1"
+                                                                    value={ur.role.id}
+                                                                    checked={ur.isSelected}
+                                                                    onChange={()=>{}}
+                                                                    onClick={this.handleCheckChieldElement}/>
+                                                                <label class="form-check-label"  htmlFor="isSelected">{ur.role.name}</label>
+                                                            </div>
+                                                        </div>
+                                                    )
+                                                })
+                                            }
+                                        </div>
+                                    </div>
+                                </Modal.Body>
+                                <Modal.Footer>
+                                    <button id="submit" type="submit" className="float-left btn btn-primary">{this.state.Submit} <Icon icon={checkSquareO}></Icon></button>
+                                    <Button className="btn btn-danger" onClick={this.handleCloseS}>Close <Icon icon={close} style={{marginTop:"-10px"}}></Icon></Button>
                                 </Modal.Footer>
                             </form>
                     </Modal>
