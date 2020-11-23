@@ -8,17 +8,7 @@ class Helper{
             }
         }
         this.url = 'https://localhost:44355/api/';
-        this.showF = false;
-        this.showS = false;
     }
-
-    
-    handleShow = () => this.ShowF = true;
-    handleClose = () => this.ShowF = false;
-    handleShowS = () => this.ShowS = true;
-    handleCloseS = () => this.ShowS = false;
-
-    
 
     
     response(response){
