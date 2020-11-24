@@ -68,7 +68,7 @@ class Collaboration{
 
     async deleteEmployee(id){
         try {
-            let response = await axios.get(Helper.url + `collaboration/deleteEmployee/${id}`);
+            let response = await axios.get(Helper.url + `collaboration/deleteEmployee/${id}`,Helper.config);
             return Helper.response(response);
         } catch (error) {
             ErrorAlert(error.message);
@@ -78,7 +78,7 @@ class Collaboration{
 
     async updateEmployee(obj){
         try {
-            let response = await axios.post(Helper.url + 'collaboration/updateEmployee',obj,Helper.config);
+            let response = await axios.patch(Helper.url + 'collaboration/updateEmployee',obj,Helper.config);
             return Helper.response(response);
         } catch (error) {
             ErrorAlert(error.message);
@@ -126,7 +126,7 @@ class Collaboration{
         }
     }
 
-    async deleteEmployee(id){
+    async deleteEp(id){
         try {
             let response = await axios.get(Helper.url + `collaboration/deleteEP/${id}`);
             return Helper.response(response);
@@ -136,7 +136,7 @@ class Collaboration{
         }
     }
 
-    async updateEmployee(obj){
+    async updateEP(obj){
         try {
             let response = await axios.post(Helper.url + 'collaboration/updateEP',obj,Helper.config);
             return Helper.response(response);

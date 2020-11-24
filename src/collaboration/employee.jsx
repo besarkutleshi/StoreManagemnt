@@ -1,6 +1,6 @@
-import MUIDataTable from 'mui-datatables'
+import MUIDataTable from 'mui-datatables';
 import React, { Component } from 'react'
-import collaborationCtrl from './collaboration.js'
+import collaboration from './collaboration'
 import { checkSquareO } from 'react-icons-kit/fa/checkSquareO'
 import { trashO } from 'react-icons-kit/fa/trashO'
 import {Button,Modal} from 'react-bootstrap'
@@ -9,59 +9,71 @@ import {close} from 'react-icons-kit/fa/close'
 import ErrorAlert from '../ErrorAlert'
 import SuccessAlert from '../SuccessAlert'
 import Swal from 'sweetalert2'
-export class Collaboration extends Component {
+export class Employee extends Component {
+    
     constructor(props) {
         super(props)
     
         this.state = {
-            Collaborations:[],
+            Employees:[],
             ID:0,
             Name:'',
-            City:'',
+            Surname:'',
             Phone:'',
             Email:'',
+            Street:'',
+            City:'',
+            PostalCode:'',
+            Country:'',
+            Submit:'Register',
             Description:'',
             Show:false,
-            IsLoading:false,
-            Submit:'Register'
+            IsLoading:false
         }
     }
-    
+
     handleShow = () => this.setState({Show:true});
     handleClose = () => this.setState({Show:false});
-    handleName = event => this.setState({Name:event.target.value})
-    handleCity = event => this.setState({City:event.target.value})
-    handlePhone = event => this.setState({Phone:event.target.value})
-    handleEmail = event => this.setState({Email:event.target.value})
-    handleDescription = event => this.setState({Description:event.target.value})
+    handleName = event => this.setState({Name:event.target.value});
+    handleSurname = event => this.setState({Surname:event.target.value});
+    handlePhone = event => this.setState({Phone:event.target.value});
+    handleEmail = event => this.setState({Email:event.target.value});
+    handleStreet = event => this.setState({Street:event.target.value});
+    handleCity = event => this.setState({City:event.target.value});
+    handlePostalCode = event => this.setState({PostalCode:event.target.value});
+    handleCountry = event => this.setState({Country:event.target.value});
+    handleDescription = event => this.setState({Description:event.target.value});
 
-    getCollaborations = async () => {
-        let result = await collaborationCtrl.getCollaborations();
+
+    getEmployees = async () => {
+        let result = await collaboration.getEmployees();
         if(result){
-            this.setState({Collaborations:result})
+            this.setState({Employees:result});
         }
     }
 
     componentDidMount = async () => {
-        await this.getCollaborations();
+        await this.getEmployees();
     }
 
     updateModal = (id) => {
-        let obj = this.state.Collaborations.find(c => c.id === id);
+        let obj = this.state.Employees.find(e => e.id === id);
         this.setState({
             ID:obj.id,
             Name:obj.name,
+            Surname:obj.surname,
+            Email:obj.email,
             Phone:obj.phone,
-            Email:obj.mail,
-            Description:obj.description,
-            City:obj.city,
+            Street:obj.address.street,
+            City:obj.address.city,
+            Country:obj.address.country,
+            PostalCode:obj.address.postalCode,
             Submit:'Update',
             Show:true
         })
     }
-
-    deleteCollaboration = async (id) => {
-
+    
+    deleteEmployee =  async (id) => {
         let result = await Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -73,7 +85,7 @@ export class Collaboration extends Component {
         });
 
         if(result.isConfirmed){
-            let response = await collaborationCtrl.deleteCollaboration(id);
+            let response = await collaboration.deleteEmployee(id);
             if(response){
                 Swal.fire(
                   'Deleted!',
@@ -87,37 +99,39 @@ export class Collaboration extends Component {
         }
     }
 
-    insertCollaboration = async event => {
+    insertEmployee = async event => {
         event.preventDefault();
-        let obj = {ID:this.state.ID,Name:this.state.Name,Mail:this.state.Email,Phone:this.state.Phone,City:this.state.City,Description:this.state.Description};
-        console.log(obj);
-        let result = this.state.Submit === "Register" ? 
-            await collaborationCtrl.insertCollaboration(obj) : await collaborationCtrl.updateCollaboration(obj);
+        let address = {Street:this.state.Street,City:this.state.City,Country:this.state.Country,PostalCode:this.state.PostalCode};
+        let obj = {ID:this.state.ID,Name:this.state.Name,Surname:this.state.Surname,Email:this.state.Email,Phone:this.state.Phone,Address:address};
+        let result = this.state.Submit === "Register" ?
+            await collaboration.insertEmployee(obj) : await collaboration.updateEmployee(obj);
         if(result){
             SuccessAlert(`${this.state.Submit} Successful`);
-            window.location.reload();
+            window.location = "";
+            this.setState({Submit:'Register'})
             return;
         }
-        ErrorAlert("Something went wrong");
+        ErrorAlert("Something Went Wrong")
     }
-    
+
+
     render() {
-        let columns = ["ID","NAME","CITY","PHONE","EMAIL","DESCRIPTION","UPDATE","DELETE"];
+        let columns = ["ID","NAME","SURNAME","EMAIL","PHONE","COUNTRY","CITY","STREET","POSTAL CODE","UPDATE","DELETE"]
         return (
             <div className="container-fluid mt-5">
-                <div className="row justify-content-center">
+                <div className="row justify-content-around">
                     <div className="col-sm-10">
-                        <Button variant="primary" onClick={this.handleShow} style={{width: "200px"}}>
-                            Insert Collaboration <Icon icon={checkSquareO}></Icon>
-                        </Button>
-                        <MUIDataTable className="mt-2"
-                            title = "Collaboratios"
+                            <Button variant="primary" onClick={this.handleShow} style={{width: "200px"}}>
+                                Insert Employee <Icon icon={checkSquareO}></Icon>
+                            </Button>
+                        <MUIDataTable className="mt-2" 
+                            title = "Employees"
                             data = {
-                                this.state.Collaborations.map(c => {
+                                this.state.Employees.map(e => {
                                     let array = [
-                                        c.id,c.name,c.city,c.phone,c.mail,c.description,
-                                        <button onClick={this.updateModal.bind(this,c.id)} className="btn btn-primary">Update <Icon icon={checkSquareO}/></button>,
-                                        <button onClick={this.deleteCollaboration.bind(this,c.id)} className="btn btn-danger">Delete <Icon icon={trashO}/></button>
+                                        e.id,e.name,e.surname,e.email,e.phone,e.address.country,e.address.city,e.address.street,e.address.postalCode,
+                                        <button onClick={this.updateModal.bind(this,e.id)} className="btn btn-primary">Update <Icon icon={checkSquareO}/></button>,
+                                        <button onClick={this.deleteEmployee.bind(this,e.id)} className="btn btn-danger">Delete <Icon icon={trashO}/></button>
                                     ]
                                     return array;
                                 })
@@ -127,6 +141,7 @@ export class Collaboration extends Component {
                     </div>
                 </div>
 
+
                 <div className="row">
                         <Modal show={this.state.Show} onHide={this.handleClose}
                             size="lg"
@@ -135,10 +150,10 @@ export class Collaboration extends Component {
                             >
                             <Modal.Header closeButton>
                                 <Modal.Title id="contained-modal-title-vcenter">
-                                    {`${this.state.Submit} Collaboration`}
+                                    {`${this.state.Submit} Employee`}
                                 </Modal.Title>
                             </Modal.Header>
-                            <form id="myForm" method="post" onSubmit={this.insertCollaboration}>
+                            <form id="myForm" method="post" onSubmit={this.insertEmployee}>
                                 <Modal.Body>
                                     <div className="container-fluid">
                                         <div className="row">
@@ -147,11 +162,10 @@ export class Collaboration extends Component {
                                                 <input id="Name" type="text" className="form-control" placeholder="Name"
                                                     value={this.state.Name} onChange={this.handleName} />
                                             </div>
-                                            
                                             <div className="col-sm-6 form-group">
-                                                <label htmlFor="City">City</label>
-                                                <input id="City" type="text" className="form-control" placeholder="City" 
-                                                    value={this.state.City} onChange={this.handleCity} />
+                                                <label htmlFor="Surname">Surname</label>
+                                                <input id="Surname" type="text" className="form-control" placeholder="Surname" 
+                                                    value={this.state.Surname} onChange={this.handleSurname} />
                                             </div>
                                             <div className="col-sm-6 form-group">
                                                 <label htmlFor="Phone">Phone</label>
@@ -162,6 +176,27 @@ export class Collaboration extends Component {
                                                 <label htmlFor="Email">Email</label>
                                                 <input id="Email" type="text" className="form-control" placeholder="Email" 
                                                     value={this.state.Email} onChange={this.handleEmail} />
+                                            </div>
+                                            <div className="col-sm-6 form-group">
+                                                <label htmlFor="Street">Street</label>
+                                                <input id="Street" type="text" className="form-control" placeholder="Street"
+                                                    value={this.state.Street} onChange={this.handleStreet} />
+                                            </div>
+                                            
+                                            <div className="col-sm-6 form-group">
+                                                <label htmlFor="City">City</label>
+                                                <input id="City" type="text" className="form-control" placeholder="City" 
+                                                    value={this.state.City} onChange={this.handleCity} />
+                                            </div>
+                                            <div className="col-sm-6 form-group">
+                                                <label htmlFor="Country">Country</label>
+                                                <input id="Country" type="text" className="form-control" placeholder="Country" 
+                                                    value={this.state.Country} onChange={this.handleCountry} />
+                                            </div>
+                                            <div className="col-sm-6 form-group">
+                                                <label htmlFor="Postal">Postal Code</label>
+                                                <input id="Postal" type="text" className="form-control" placeholder="Postal Code" 
+                                                    value={this.state.PostalCode} onChange={this.handlePostalCode} />
                                             </div>
                                         </div>
                                         <div className="row">
@@ -180,10 +215,9 @@ export class Collaboration extends Component {
                             </form>
                     </Modal>
                 </div>
-
             </div>
         )
     }
 }
 
-export default Collaboration
+export default Employee

@@ -184,7 +184,7 @@ export class Item extends Component {
                             >
                             <Modal.Header closeButton>
                                 <Modal.Title id="contained-modal-title-vcenter">
-                                    {`${this.state.Submit} User`}
+                                    {`${this.state.Submit} Item`}
                                 </Modal.Title>
                             </Modal.Header>
                             <form id="myForm" method="post" onSubmit={this.insertItem}>
