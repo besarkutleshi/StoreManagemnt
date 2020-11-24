@@ -143,6 +143,7 @@ export class Item extends Component {
         if(result){
             SuccessAlert(`${this.state.Submit} Successful`);
             window.location = "";
+            this.setState({Submit:'Register'})
             return;
         }
         ErrorAlert("Something Went Wrong")

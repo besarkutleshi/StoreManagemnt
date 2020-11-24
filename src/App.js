@@ -8,13 +8,14 @@ import Business from './businesses/business';
 import Role from './account/authorization/views/role.jsx';
 import UserList from './account/authentication/views/user.list';
 import Item from './item/views/item';
+import Collaboration from './collaboration/collaboration.jsx';
 function App() {
   let user = sessionStorage.getItem("User"); 
   return (
     <BrowserRouter>
         <Route path="/" exact strict component={Login} />
 
-        <ProtectedRoute path="/roles" component={Item} auth={
+        <ProtectedRoute path="/roles" component={Collaboration} auth={
           user ? user.Token !== "" ? "true" : "false" : "false"}/>
 
         <ProtectedRoute path="/users" component={UserList} auth={
