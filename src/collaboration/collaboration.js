@@ -14,8 +14,6 @@ class Collaboration{
         }
     }
 
-    //mundohu me kriju ni metod per me dergu requesta ni metod te perbashkt qe e kryn punen me ni rresht veq return qajo metod me parametra
-
     async deleteCollaboration(id){
         try {
             let response = await axios.get(Helper.url + `collaboration/deleteCollaboration/${id}`,Helper.config);
@@ -98,7 +96,7 @@ class Collaboration{
 
     async getEmployeeById(id){
         try {
-            let response = await axios.get(Helper.url + `collaboration/getEmployee/${id}`);
+            let response = await axios.get(Helper.url + `collaboration/getEmployee/${id}`,Helper.config);
             return response.data;
         } catch (error) {
             ErrorAlert(error.message);
@@ -108,7 +106,7 @@ class Collaboration{
     
     async getEmployeeByName(name){
         try {
-            let response = await axios.get(Helper.url + `collaboration/getEmployee/${name}`);
+            let response = await axios.get(Helper.url + `collaboration/getEmployee/${name}`,Helper.config);
             return response.data;
         } catch (error) {
             ErrorAlert(error.message);
@@ -128,7 +126,7 @@ class Collaboration{
 
     async deleteEp(id){
         try {
-            let response = await axios.get(Helper.url + `collaboration/deleteEP/${id}`);
+            let response = await axios.get(Helper.url + `collaboration/deleteEP/${id}`,Helper.config);
             return Helper.response(response);
         } catch (error) {
             ErrorAlert(error.message);
@@ -158,7 +156,47 @@ class Collaboration{
 
     async getEP(id){
         try {
-            let response = await axios.get(Helper.url + `collaboration/getEP/${id}`);
+            let response = await axios.get(Helper.url + `collaboration/getEP/${id}`,Helper.config);
+            return response.data;
+        } catch (error) {
+            ErrorAlert(error.message);
+            return false;
+        }
+    }
+
+    async insertPos(obj){
+        try {
+            let response = await axios.post(Helper.url + 'collaboration/insertPOS',obj,Helper.config);
+            return Helper.response(response);
+        } catch (error) {
+            ErrorAlert(error.message);
+            return false;
+        }
+    }
+
+    async deletePos(id){
+        try {
+            let response = await axios.get(Helper.url + `collaboration/deletePOS/${id}`,Helper.config);
+            return Helper.response(response);
+        } catch (error) {
+            ErrorAlert(error.message);
+            return false;
+        }
+    }
+
+    async updatePos(obj){
+        try {
+            let response = await axios.patch(Helper.url + 'collaboration/updatePOS',obj,Helper.config);
+            return Helper.response(response);
+        } catch (error) {
+            ErrorAlert(error.message);
+            return false;
+        }
+    }
+
+    async getPoss(){
+        try {
+            let response = await axios.get(Helper.url + 'collaboration/getAllPos',Helper.config);
             return response.data;
         } catch (error) {
             ErrorAlert(error.message);
