@@ -1,5 +1,6 @@
 import axios from 'axios'
 import Helper from '../../Helper.js'
+import $ from 'jquery'
 class Authentication{
 
 
@@ -10,6 +11,8 @@ class Authentication{
                 let user = result.data;
                 sessionStorage.clear();
                 sessionStorage.setItem("User",JSON.stringify(user));
+                $('#welcome').text(`Welcome ${JSON.parse(sessionStorage.getItem("User")).username}`)
+                $('#login').hide();
                 return true;
             }
             return false;

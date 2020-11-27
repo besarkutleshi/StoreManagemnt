@@ -9,6 +9,7 @@ import { close } from 'react-icons-kit/fa/close'
 import ErrorAlert from '../ErrorAlert'
 import SuccessAlert from '../SuccessAlert'
 import Swal from 'sweetalert2'
+
 export class Collaboration extends Component {
     constructor(props) {
         super(props)

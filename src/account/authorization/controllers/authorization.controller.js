@@ -79,7 +79,7 @@ class AuthorizeController{
     async insertUsersInRole(userRoles){
         try {
             let response = await axios.post(Helper.url + 'authorize/insertUsersInRole',userRoles,Helper.config);
-            Helper.response(response);
+            return Helper.response(response);
         } catch (error) {
             return false;
         }

@@ -24,14 +24,14 @@ export class Login extends Component {
         event.preventDefault();
         let result = await authentication.login({Username:this.state.Username,Password:this.state.Password,BusinessCode:this.state.BusinessCode});
         if(result === true){
-            window.location = "roles"
+            window.location = "items"
         }
     }
 
 
     render() {
         return (
-            <div class="container" style={{marginTop:"140px"}}>
+            <div class="container" style={{marginTop:"40px"}}>
                 <div class="row">
                     <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
                         <div class="card card-signin my-5">

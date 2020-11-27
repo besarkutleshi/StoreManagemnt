@@ -169,16 +169,14 @@ export class UserList extends Component {
         }
         if(this.state.Users.length > 0){
             return (
-                <div className="container">
-                  
+                <div className="container-fluid">
                     <div className="row mt-5">
-                        <div className="col-sm-4">
+                        <div className="col-sm-3">
                             <Button variant="primary" onClick={this.handleShow} style={{width: "100%"}}>
                                 Insert User <Icon icon={checkSquareO}></Icon>
                             </Button>
                         </div>
                     </div>
-                   
                     <div className="row mt-1">
                         <div className="col-sm-12">
                             <MUI 

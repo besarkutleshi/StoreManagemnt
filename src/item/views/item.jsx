@@ -154,8 +154,8 @@ export class Item extends Component {
         let cols = ["Barcode","Name","Pruchase Price","Sale Price","Category","Unit","Type","Supplier","Description","Update","Delete"]
         return (
             <div className="container-fluid">
-                <div className="row justify-content-center" style={{marginTop:"70px"}}>
-                    <div className="col-sm-10">
+                <div className="row justify-content-center" style={{marginTop:"30px"}}>
+                    <div className="col-sm-12">
                             <Button variant="primary" onClick={this.handleShow} style={{width: "200px"}}>
                                 Insert Item <Icon icon={checkSquareO}></Icon>
                             </Button>
