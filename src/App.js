@@ -12,11 +12,12 @@ import Collaboration from './collaboration/collaboration.jsx'
 import Employee from './collaboration/employee';
 import StoreHouse from './collaboration/store.house';
 import EmployeePos from './collaboration/employee.pos';
+import Category from './item/views/category';
 function App() {
-  let user = sessionStorage.getItem("User"); 
+  let user = sessionStorage.getItem("user"); 
   return (
     <BrowserRouter>
-        <Route path="/" exact strict component={Login} />
+        <Route path="/" exact strict component={Category} />
         <Route path="/registerUser" exact strict component={RegisterUser} />
         <ProtectedRoute path="/roles" component={Role} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
         <ProtectedRoute path="/users" component={UserList} auth={user ? user.Token !== "" ? "true" : "false" : "false"} />
