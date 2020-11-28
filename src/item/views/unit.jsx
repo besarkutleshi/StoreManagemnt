@@ -19,6 +19,7 @@ import catCtrl from '../controllers/item.controller';
     
             this.state = {
                 ItemUnits: [],
+                ID:0, 
                 Name: '',
                 Description: '',
                 Show:false,
@@ -40,6 +41,47 @@ import catCtrl from '../controllers/item.controller';
         componentDidMount = async () => {
             await this.getUnits();
         }
+        
+
+        updateModal = (id) =>{
+            let unit = this.state.ItemUnit.find(i => i.id === id); 
+            this.setState({
+                ID:unit.id,
+                Name:unit.name,
+                Description:unit.description,
+                Show:true,
+                Submit:'Update'
+            })
+        }
+
+        deleteUnit = async (id) => {
+            
+            let result = await Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            });
+    
+            if(result.isConfirmed){
+                
+                let response = await itemCtrl.delete("deletUnit",id);
+                if(response){
+                    Swal.fire(
+                      'Deleted!',
+                      'Unit has been deleted.',
+                      'success'
+                    );
+                    window.location.reload();
+                }else{
+                    ErrorAlert(response.Error);
+                }
+            }
+        }
+
         insertUnitType = async event => {
             event.preventDefault();
             let obj = {Name:this.state.Name,Description:this.state.Description};
@@ -67,8 +109,9 @@ import catCtrl from '../controllers/item.controller';
                                     this.state.ItemUnits.map(u => {
                                         let array = [ 
                                             u.id, u.name, u.description,
-                                            <button>Update</button>,
-                                            <button>Delete</button>
+                                        
+                                            <button className="btn btn-primary" onClick={this.updateModal.bind(this,u.id)} >Update <Icon icon={checkSquareO}/></button>,//qitu ja jepum idn ne parameter
+                                            <button className="btn btn-danger" onClick={this.deleteUnit.bind(this,u.id)} >Delete <Icon icon={trashO}/></button> // edhe qito ikonat i mer copy shtoja tash qito edhe tjerave qe i bone categoris types edhe docs veq kqyri metodat anej ne api
                                         ]
                                         return array;
                                     })

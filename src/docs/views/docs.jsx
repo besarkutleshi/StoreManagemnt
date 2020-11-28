@@ -18,6 +18,7 @@ export class Docs extends Component {
 
         this.state = {
             Docs: [],
+            ID:0,
             Name: '',
             Description: '',
             Show:false,
@@ -32,8 +33,7 @@ export class Docs extends Component {
     handleName = event => this.setState({ Name: event.target.value });
     handleDescription = event => this.setState({ Description: event.target.value });
 
-    //qikjo e thirr metoden getDocs prej kontrollerit anej
-    //edhe qat resultat e qet me setState ne variablen DOCS
+    
     getDocs = async () => {
         let result = await docCtrl.getDocs();
         if (result) {
@@ -41,12 +41,47 @@ export class Docs extends Component {
         }
     }
 
-    // qikjo osht form load dmth si t hapet faqja meniher thirret metoda me i mar doctypes
+    
     componentDidMount = async () => {
         await this.getDocs();
     }
+    updateModal = (id) =>{
+        let doc = this.state.Docs.find(i => i.id === id); 
+        this.setState({
+            ID:doc.id,
+            Name:doc.name,
+            Description:doc.description,
+            Show:true,
+            Submit:'Update'
+        })
+    }
+    deleteDoc = async (id) => {
+        let result = await Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        });
+        if(result.isConfirmed){
+            let response = await docCtrl.delete("deleteDoc",id);
+            if(response){
+                Swal.fire(
+                  'Deleted!',
+                  'Document Type has been deleted.',
+                  'success'
+                );
+                window.location.reload();
+            }else{
+                ErrorAlert(response.Error);
+            }
+        }
+    }
 
-    //QIKJO METOD QITET TE ONSUBMIT NE FORM POSHT QE KUR TE BOHET SUMBIT QAJO FORM THIRRET QIKJO METOD
+
+
     insertDocType = async event => {
         event.preventDefault();
         let obj = {Code:this.state.Name,Description:this.state.Description};
@@ -63,7 +98,6 @@ export class Docs extends Component {
         let columns = ["ID", "Name", "Description", "Update", "Delete"]
         return (
             <div className="container-fluid" style={{ marginTop: "30px" }}>
-                {/* QIKY OSHT RRESHTI PER TABEL */}
                 <div className="row">
                     <div className="col-sm-12">
                         <Button variant="primary" onClick={this.handleShow} style={{width: "200px"}}>
@@ -75,8 +109,8 @@ export class Docs extends Component {
                                 this.state.Docs.map(d => {
                                     let array = [
                                         d.docTypeID, d.code, d.description,
-                                        <button>Update</button>,
-                                        <button>Delete</button>
+                                        <button className="btn btn-primary" onClick={this.updateModal.bind(this,u.id)} >Update <Icon icon={checkSquareO}/></button>,
+                                        <button className="btn btn-danger" onClick={deleteDoc.bind(this,u.id)} >Delete <Icon icon={trashO}/></button>
                                     ]
                                     return array;
                                 })
@@ -85,7 +119,6 @@ export class Docs extends Component {
                         />
                     </div>
                 </div>
-                {/* QIKY OSHT RRESHTI PER INSERTIM */}
                 <div className="row">
                     <div className="col-sm-12">
                         <Modal show={this.state.Show} onHide={this.handleClose}

@@ -18,6 +18,7 @@ export class Type extends Component {
 
         this.state = {
             ItemTypes: [],
+            ID:0,
             Name: '',
             Description: '',
             Show:false,
@@ -42,6 +43,41 @@ export class Type extends Component {
 
     componentDidMount = async () => {
         await this.getTypes();
+    }
+    updateModal = (id) =>{
+        let type = this.state.ItemTypes.find(i => i.id === id); 
+        this.setState({
+            ID:type.id,
+            Name:type.name,
+            Description:type.description,
+            Show:true,
+            Submit:'Update'
+        })
+    }
+    deleteType = async (id) => {
+        
+        let result = await Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        });
+        if(result.isConfirmed){
+            let response = await itemCtrl.delete("deleteType",id);
+            if(response){
+                Swal.fire(
+                  'Deleted!',
+                  'Type has been deleted.',
+                  'success'
+                );
+                window.location.reload();
+            }else{
+                ErrorAlert(response.Error);
+            }
+        }
     }
 
     insertItemType = async event => {
@@ -73,8 +109,8 @@ export class Type extends Component {
                                 this.state.ItemTypes.map(d => {
                                     let array = [
                                         d.id, d.name, d.description,
-                                        <button>Update</button>,
-                                        <button>Delete</button>
+                                        <button className="btn btn-primary" onClick={this.updateModal.bind(this,d.id)} >Update <Icon icon={checkSquareO}/></button>,
+                                        <button className="btn btn-danger" onClick={deleteType.bind(this,d.id)} >Delete <Icon icon={trashO}/></button>
                                     ]
                                     return array;
                                 })

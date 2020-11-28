@@ -18,6 +18,7 @@ export class Category extends Component {
 
         this.state = {
             ItemCategories: [],
+            ID:0,
             Name: '',
             Description: '',
             Show:false,
@@ -43,6 +44,26 @@ export class Category extends Component {
     componentDidMount = async () => {
         await this.getCategories();
     }
+    updateModal = (id) =>{
+        let  category  = this.state.ItemCategories.find(i => i.id === id); 
+        this.setState({
+            ID:category.id,
+            Name:category.name,
+            Description:category.description,
+            Show:true,
+            Submit:'Update'
+        })
+    }
+    deleteCategory = async (id) => {
+        let result = await Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        });
 
     insertCategoryType = async event => {
         event.preventDefault();
@@ -54,6 +75,20 @@ export class Category extends Component {
             ErrorAlert("Something went wrong");
         }
     }
+    if(result.isConfirmed){
+        let response = await catCtrl.delete("deleteCategory",id);
+        if(response){
+            Swal.fire(
+              'Deleted!',
+              'Category has been deleted.',
+              'success'
+            );
+            window.location.reload();
+        }else{
+            ErrorAlert(response.Error);
+        }
+    }
+}
 
     
 
@@ -73,8 +108,8 @@ export class Category extends Component {
                                 this.state.ItemCategories.map(d => {
                                     let array = [
                                         d.id, d.name, d.description,
-                                        <button>Update</button>,
-                                        <button>Delete</button>
+                                        <button className="btn btn-primary" onClick={this.updateModal.bind(this,d.id)} >Update <Icon icon={checkSquareO}/></button>,
+                                        <button className="btn btn-danger" onClick={deleteCategory.bind(this,d.id)} >Delete <Icon icon={trashO}/></button>
                                     ]
                                     return array;
                                 })
