@@ -12,16 +12,21 @@ import Collaboration from './collaboration/collaboration.jsx'
 import Employee from './collaboration/employee';
 import StoreHouse from './collaboration/store.house';
 import EmployeePos from './collaboration/employee.pos';
+import Type from './item/views/type';
 import Category from './item/views/category';
+
+
 function App() {
   let user = sessionStorage.getItem("user"); 
   return (
     <BrowserRouter>
-        <Route path="/" exact strict component={Category} />
+        <Route path="/" exact strict component={Type} />
         <Route path="/registerUser" exact strict component={RegisterUser} />
         <ProtectedRoute path="/roles" component={Role} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
         <ProtectedRoute path="/users" component={UserList} auth={user ? user.Token !== "" ? "true" : "false" : "false"} />
         <ProtectedRoute path="/items" component={Item} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
+        <ProtectedRoute path="/itemTypes" component={Type} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
+        <ProtectedRoute path="/itemCategories" component={Category} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
         <ProtectedRoute path="/collaborations" component={Collaboration} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
         <ProtectedRoute path="/employees" component={Employee} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
         <ProtectedRoute path="/storeHouses" component={StoreHouse} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>

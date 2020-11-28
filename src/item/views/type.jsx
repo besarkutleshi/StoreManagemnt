@@ -12,12 +12,12 @@ import Swal from 'sweetalert2'
 import { pencil } from 'react-icons-kit/fa/pencil';
 import catCtrl from '../controllers/item.controller'
 
-export class Category extends Component {
+export class Type extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            ItemCategories: [],
+            ItemTypes: [],
             Name: '',
             Description: '',
             Show:false,
@@ -33,21 +33,21 @@ export class Category extends Component {
 
 
 
-    getCategories = async () =>{
-        let result = await catCtrl.getAll("getCategoires")
+    getTypes = async () =>{
+        let result = await catCtrl.getAll("getTypes")
         if(result){
-            this.setState({ItemCategories:result})
+            this.setState({ItemTypes:result})
         }
     }
 
     componentDidMount = async () => {
-        await this.getCategories();
+        await this.getTypes();
     }
 
-    insertCategoryType = async event => {
+    insertItemType = async event => {
         event.preventDefault();
         let obj = {Name:this.state.Name,Description:this.state.Description};
-        let result = await catCtrl.insert("insertCategory",obj);
+        let result = await catCtrl.insert("insertType",obj);
         if(result === true){
             SuccessAlert("Register Successful");
         }else{
@@ -65,13 +65,13 @@ export class Category extends Component {
                 <div className="row">
                     <div className="col-sm-12">
                         <Button variant="primary" onClick={this.handleShow} style={{width: "200px"}}>
-                            Insert Item Category <Icon icon={checkSquareO}></Icon>
+                            Insert Item Type <Icon icon={checkSquareO}></Icon>
                         </Button>
                         <MUI
-                            title="Item Category"
+                            title="Item Type"
                             data={
-                                this.state.ItemCategories.map(d => {
-                                    let array = [
+                                this.state.ItemTypes.map(d => {
+                                    let array = [ // sje hi me i kqyr kto hiq
                                         d.id, d.name, d.description,
                                         <button>Update</button>,
                                         <button>Delete</button>
@@ -94,17 +94,17 @@ export class Category extends Component {
                             <Modal.Header closeButton>
                                 <Modal.Title id="contained-modal-title-vcenter">
                                     {
-                                        `${this.state.Submit} Item Category`
+                                        `${this.state.Submit} Item Type`
                                     }
                                 </Modal.Title>
                             </Modal.Header>
-                            <form id="myForm" method="post" onSubmit={this.insertCategoryType}>
+                            <form id="myForm" method="post" onSubmit={this.insertItemType}>
                                 <Modal.Body>
                                     <div className="container-fluid">
                                         <div className="row">
                                             <div className="col-sm-12 form-group">
-                                                <label>Category Name</label>
-                                                <input type="text" placeholder="Category Name" className="form-control"
+                                                <label>Type Name</label>
+                                                <input type="text" placeholder="Type Name" className="form-control"
                                                     onChange={this.handleName} value={this.state.Name} />
                                             </div>
                                         </div>
@@ -133,4 +133,4 @@ export class Category extends Component {
 }
 
 
-export default Category
+export default Types
