@@ -71,7 +71,7 @@ export class Type extends Component {
                             title="Item Type"
                             data={
                                 this.state.ItemTypes.map(d => {
-                                    let array = [ // sje hi me i kqyr kto hiq
+                                    let array = [
                                         d.id, d.name, d.description,
                                         <button>Update</button>,
                                         <button>Delete</button>
