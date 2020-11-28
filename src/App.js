@@ -14,7 +14,7 @@ import StoreHouse from './collaboration/store.house';
 import EmployeePos from './collaboration/employee.pos';
 import PurchaseList from './invoice/view/purchase';
 function App() {
-  let user = sessionStorage.getItem("User"); 
+  let user = sessionStorage.getItem("user"); 
   return (
     <BrowserRouter>
         <Route path="/" exact strict component={Login} />
