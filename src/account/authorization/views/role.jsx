@@ -129,7 +129,6 @@ export class Role extends Component {
     render() {
         return (
             <div className="container">
-
                 <div className="row" style={{ marginBottom: "5px", marginTop: "20px" }}>
                     <div className="col-sm-4 float-left">
                         <Button variant="primary" onClick={this.handleShow} style={{width: "100%"}}>

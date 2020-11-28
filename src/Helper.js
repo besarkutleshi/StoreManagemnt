@@ -26,6 +26,14 @@ class Helper{
         });
         return newarray;
     }
+
+    hide(value){
+        if(!value){
+            $('#activeItems').hide();
+        }else{
+            $('#activeItems').show();
+        }
+    }
 }
 
 export default new Helper();

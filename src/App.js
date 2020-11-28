@@ -12,6 +12,7 @@ import Collaboration from './collaboration/collaboration.jsx'
 import Employee from './collaboration/employee';
 import StoreHouse from './collaboration/store.house';
 import EmployeePos from './collaboration/employee.pos';
+import PurchaseList from './invoice/view/purchase';
 function App() {
   let user = sessionStorage.getItem("User"); 
   return (
@@ -20,7 +21,7 @@ function App() {
         <Route path="/registerUser" exact strict component={RegisterUser} />
         <ProtectedRoute path="/roles" component={Role} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
         <ProtectedRoute path="/users" component={UserList} auth={user ? user.Token !== "" ? "true" : "false" : "false"} />
-        <ProtectedRoute path="/items" component={Item} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
+        <ProtectedRoute path="/items" component={PurchaseList} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
         <ProtectedRoute path="/collaborations" component={Collaboration} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
         <ProtectedRoute path="/employees" component={Employee} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
         <ProtectedRoute path="/storeHouses" component={StoreHouse} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
