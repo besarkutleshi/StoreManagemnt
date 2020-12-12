@@ -1,0 +1,15 @@
+.modal-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    padding: .75rem;
+    border-top: 1px solid #dee2e6;
+    border-bottom-right-radius: calc(.3rem - 1px);
+    border-bottom-left-radius: calc(.3rem - 1px);
+    margin-top: 150px !important ;
+}
+
+.modal-dialog {
+    max-width: 90% !important;
+}

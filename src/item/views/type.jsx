@@ -10,7 +10,7 @@ import ErrorAlert from '../../ErrorAlert'
 import SuccessAlert from '../../SuccessAlert'
 import Swal from 'sweetalert2'
 import { pencil } from 'react-icons-kit/fa/pencil';
-import catCtrl from '../controllers/item.controller'
+import typeCtrl from '../controllers/item.controller'
 
 export class Type extends Component {
     constructor(props) {
@@ -35,7 +35,7 @@ export class Type extends Component {
 
 
     getTypes = async () =>{
-        let result = await catCtrl.getAll("getTypes")
+        let result = await typeCtrl.getAll("getTypes")
         if(result){
             this.setState({ItemTypes:result})
         }
@@ -44,6 +44,7 @@ export class Type extends Component {
     componentDidMount = async () => {
         await this.getTypes();
     }
+
     updateModal = (id) =>{
         let type = this.state.ItemTypes.find(i => i.id === id); 
         this.setState({
@@ -54,8 +55,8 @@ export class Type extends Component {
             Submit:'Update'
         })
     }
+
     deleteType = async (id) => {
-        
         let result = await Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -66,7 +67,7 @@ export class Type extends Component {
             confirmButtonText: 'Yes, delete it!'
         });
         if(result.isConfirmed){
-            let response = await itemCtrl.delete("deleteType",id);
+            let response = await typeCtrl.delete("deleteType",id);
             if(response){
                 Swal.fire(
                   'Deleted!',
@@ -82,10 +83,12 @@ export class Type extends Component {
 
     insertItemType = async event => {
         event.preventDefault();
-        let obj = {Name:this.state.Name,Description:this.state.Description};
-        let result = await catCtrl.insert("insertType",obj);
+        let obj = {ID:this.state.ID,Name:this.state.Name,Description:this.state.Description};
+        let result = this.state.Submit === "Register" ? 
+             await typeCtrl.insert("insertType",obj) : await typeCtrl.update("updateType",obj);
         if(result === true){
-            SuccessAlert("Register Successful");
+            SuccessAlert(`${this.state.Submit} Successful`);
+            window.location.reload();
         }else{
             ErrorAlert("Something went wrong");
         }
@@ -96,21 +99,21 @@ export class Type extends Component {
     render() {
         let columns = ["ID", "Name", "Description", "Update", "Delete"]
         return (
-            <div className="container-fluid" style={{ marginTop: "30px" }}>
+            <div className="container" style={{ marginTop: "30px" }}>
                
                 <div className="row">
                     <div className="col-sm-12">
                         <Button variant="primary" onClick={this.handleShow} style={{width: "200px"}}>
                             Insert Item Type <Icon icon={checkSquareO}></Icon>
                         </Button>
-                        <MUI
+                        <MUI className="mt-2"
                             title="Item Type"
                             data={
                                 this.state.ItemTypes.map(d => {
                                     let array = [
                                         d.id, d.name, d.description,
-                                        <button className="btn btn-primary" onClick={this.updateModal.bind(this,d.id)} >Update <Icon icon={checkSquareO}/></button>,
-                                        <button className="btn btn-danger" onClick={deleteType.bind(this,d.id)} >Delete <Icon icon={trashO}/></button>
+                                        <button className="btn btn-primary" onClick={this.updateModal.bind(this,d.id)} ><Icon icon={pencil}/></button>,
+                                        <button className="btn btn-danger" onClick={this.deleteType.bind(this,d.id)} ><Icon icon={trashO}/></button>
                                     ]
                                     return array;
                                 })
@@ -169,4 +172,4 @@ export class Type extends Component {
 }
 
 
-export default Types
+export default Type

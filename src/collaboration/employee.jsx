@@ -120,7 +120,7 @@ export class Employee extends Component {
         return (
             <div className="container-fluid mt-5">
                 <div className="row justify-content-around">
-                    <div className="col-sm-10">
+                    <div className="col-sm-12">
                         <Button variant="primary" onClick={this.handleShow} style={{ width: "200px" }}>
                             Insert Employee <Icon icon={checkSquareO}></Icon>
                         </Button>

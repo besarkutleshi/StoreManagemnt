@@ -44,6 +44,7 @@ export class Category extends Component {
     componentDidMount = async () => {
         await this.getCategories();
     }
+    
     updateModal = (id) =>{
         let  category  = this.state.ItemCategories.find(i => i.id === id); 
         this.setState({
@@ -54,6 +55,8 @@ export class Category extends Component {
             Submit:'Update'
         })
     }
+
+
     deleteCategory = async (id) => {
         let result = await Swal.fire({
             title: 'Are you sure?',
@@ -64,52 +67,54 @@ export class Category extends Component {
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, delete it!'
         });
+    
+        if(result.isConfirmed){
+            let response = await catCtrl.delete("deleteCategory",id);
+            if(response){
+                Swal.fire(
+                'Deleted!',
+                'Category has been deleted.',
+                'success'
+                );
+                window.location.reload();
+            }else{
+                ErrorAlert(response.Error);
+            }
+        }
+    }
 
     insertCategoryType = async event => {
         event.preventDefault();
-        let obj = {Name:this.state.Name,Description:this.state.Description};
-        let result = await catCtrl.insert("insertCategory",obj);
+        let obj = {ID:this.state.ID,Name:this.state.Name,Description:this.state.Description};
+        let result = this.state.Submit === "Register" ? 
+            await catCtrl.insert("insertCategory",obj) : await catCtrl.update("updateCategory",obj);
         if(result === true){
             SuccessAlert("Register Successful");
+            window.location.reload();
         }else{
             ErrorAlert("Something went wrong");
         }
     }
-    if(result.isConfirmed){
-        let response = await catCtrl.delete("deleteCategory",id);
-        if(response){
-            Swal.fire(
-              'Deleted!',
-              'Category has been deleted.',
-              'success'
-            );
-            window.location.reload();
-        }else{
-            ErrorAlert(response.Error);
-        }
-    }
-}
 
-    
 
     render() {
         let columns = ["ID", "Name", "Description", "Update", "Delete"]
         return (
-            <div className="container-fluid" style={{ marginTop: "30px" }}>
+            <div className="container" style={{ marginTop: "30px" }}>
                
                 <div className="row">
                     <div className="col-sm-12">
                         <Button variant="primary" onClick={this.handleShow} style={{width: "200px"}}>
                             Insert Item Category <Icon icon={checkSquareO}></Icon>
                         </Button>
-                        <MUI
+                        <MUI className="mt-2"
                             title="Item Category"
                             data={
                                 this.state.ItemCategories.map(d => {
                                     let array = [
                                         d.id, d.name, d.description,
                                         <button className="btn btn-primary" onClick={this.updateModal.bind(this,d.id)} >Update <Icon icon={checkSquareO}/></button>,
-                                        <button className="btn btn-danger" onClick={deleteCategory.bind(this,d.id)} >Delete <Icon icon={trashO}/></button>
+                                        <button className="btn btn-danger" onClick={this.deleteCategory.bind(this,d.id)} >Delete <Icon icon={trashO}/></button>
                                     ]
                                     return array;
                                 })

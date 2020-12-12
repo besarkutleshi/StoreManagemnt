@@ -76,7 +76,7 @@ export class Login extends Component {
                                     </div>
                                     
                                     <hr class="my-4"/>
-                                    <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Register</button>
+                                    <a href="/registerUser" class="btn btn-lg btn-primary btn-block text-uppercase" type="button">Register</a>
                                 </form>
 
                             </div>
