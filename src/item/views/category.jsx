@@ -26,7 +26,7 @@ export class Category extends Component {
         }
     }
 
-    handleClose = () => this.setState({Show:false});
+    handleClose = () => this.setState({Show:false,Name:'',Description:'',Submit:'Register'});
     handleShow = () => this.setState({Show:true});
     handleName = event => this.setState({ Name: event.target.value });
     handleDescription = event => this.setState({ Description: event.target.value });
@@ -100,10 +100,10 @@ export class Category extends Component {
     render() {
         let columns = ["ID", "Name", "Description", "Update", "Delete"]
         return (
-            <div className="container" style={{ marginTop: "30px" }}>
+            <div className="container-fluid" style={{ marginTop: "30px" }}>
                
-                <div className="row">
-                    <div className="col-sm-12">
+                <div className="row justify-content-center align-content-center">
+                    <div className="col-sm-10">
                         <Button variant="primary" onClick={this.handleShow} style={{width: "200px"}}>
                             Insert Item Category <Icon icon={checkSquareO}></Icon>
                         </Button>

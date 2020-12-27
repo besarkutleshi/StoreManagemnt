@@ -31,7 +31,7 @@ class InvoiceController{
 
     getInvoices = async () => {
         try{
-            let response = await axios.get(Helper.url + 'invoice/getInvoices');
+            let response = await axios.get(Helper.url + 'invoice/getInvoices',Helper.config);
             return response.data;
         }catch(error){
             return false;
@@ -40,7 +40,7 @@ class InvoiceController{
 
     getInvoicesBody = async (headerid) => {
         try{
-            let response = await axios.get(Helper.url + `invoice/getInvoicesBody/${headerid}`);
+            let response = await axios.get(Helper.url + `invoice/getInvoicesBody/${headerid}`,Helper.config);
             return response.data;
         }catch(error){
             return false;
@@ -49,7 +49,7 @@ class InvoiceController{
 
     getInvoicesMaxID = async (method) => {
         try{
-            let response = await axios.get(Helper.url + `invoice/${method}`);
+            let response = await axios.get(Helper.url + `invoice/${method}`,Helper.config);
             return response.data;
         }catch(error){
             return false;
@@ -58,7 +58,7 @@ class InvoiceController{
 
     getPurchasesToday = async () => {
         try{
-            let response = await axios.get(Helper.url + `invoice/getPurchasesToday`);
+            let response = await axios.get(Helper.url + `invoice/getPurchasesToday`,Helper.config);
             return response.data;
         }catch(error){
             return false;
@@ -67,7 +67,7 @@ class InvoiceController{
 
     getSaleToday = async () => {
         try{
-            let response = await axios.get(Helper.url + `invoice/getSaleToday`);
+            let response = await axios.get(Helper.url + `invoice/getSaleToday`,Helper.config);
             return response.data;
         }catch(error){
             return false;
@@ -76,7 +76,7 @@ class InvoiceController{
 
     getTotalPurchaseToday = async () => {
         try{
-            let response = await axios.get(Helper.url + `invoice/getTotalPurchaseToday`);
+            let response = await axios.get(Helper.url + `invoice/getTotalPurchaseToday`,Helper.config);
             return response.data;
         }catch(error){
             return false;
@@ -85,7 +85,7 @@ class InvoiceController{
 
     getTotalSaleToday = async () => {
         try{
-            let response = await axios.get(Helper.url + `invoice/getTotalSaleToday`);
+            let response = await axios.get(Helper.url + `invoice/getTotalSaleToday`,Helper.config);
             return response.data;
         }catch(error){
             return false;

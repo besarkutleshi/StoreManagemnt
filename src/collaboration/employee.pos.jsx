@@ -30,7 +30,7 @@ export class EmployeePos extends Component {
     }
 
     handleShow = () => this.setState({ Show: true });
-    handleClose = () => this.setState({ Show: false });
+    handleClose = () => this.setState({ Show: false,EmployeeID:0,StoreHouseID:0,Submit:'Register',Description:''});
     handleEmployee = event => this.setState({ EmployeeID: event.target.value });
     handleStoreHouse = event => this.setState({ StoreHouseID: event.target.value });
     handleDescription = event => this.setState({Description:event.target.value});

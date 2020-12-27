@@ -24,7 +24,7 @@ export class Unit extends Component {
         }
     }
     
-    handleClose = () => this.setState({ Show: false });
+    handleClose = () => this.setState({ Show: false,Name:'',Description:'',Submit:'Register' });
     handleShow = () => this.setState({ Show: true });
     handleName = event => this.setState({ Name: event.target.value });
     handleDescription = event => this.setState({ Description: event.target.value });
@@ -96,10 +96,10 @@ export class Unit extends Component {
     render() {
         let columns = ["ID", "Name", "Description", "Update", "Delete"]
         return (
-            <div className="container" style={{ marginTop: "30px" }}>
+            <div className="container-fluid" style={{ marginTop: "30px" }}>
 
-                <div className="row">
-                    <div className="col-sm-12">
+                <div className="row justify-content-center align-content-center">
+                    <div className="col-sm-10">
                         <Button variant="primary" onClick={this.handleShow} style={{ width: "200px" }}>
                             Insert Item Type <Icon icon={checkSquareO}></Icon>
                         </Button>
@@ -109,9 +109,8 @@ export class Unit extends Component {
                                 this.state.ItemUnits.map(u => {
                                     let array = [
                                         u.id, u.name, u.description,
-
-                                        <button className="btn btn-primary" onClick={this.updateModal.bind(this, u.id)} >Update <Icon icon={checkSquareO} /></button>,//qitu ja jepum idn ne parameter
-                                        <button className="btn btn-danger" onClick={this.deleteUnit.bind(this, u.id)} >Delete <Icon icon={trashO} /></button> // edhe qito ikonat i mer copy shtoja tash qito edhe tjerave qe i bone categoris types edhe docs veq kqyri metodat anej ne api
+                                        <button className="btn btn-primary" onClick={this.updateModal.bind(this, u.id)} >Update <Icon icon={pencil} /></button>,
+                                        <button className="btn btn-danger" onClick={this.deleteUnit.bind(this, u.id)} >Delete <Icon icon={trashO} /></button>
                                     ]
                                     return array;
                                 })

@@ -26,7 +26,7 @@ export class Docs extends Component {
         }
     }
 
-    handleClose = () => this.setState({Show:false});
+    handleClose = () => this.setState({Show:false,Name:'',Description:'',Submit:'Register'});
     handleShow = () => this.setState({Show:true});
 
 

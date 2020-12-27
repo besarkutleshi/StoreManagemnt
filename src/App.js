@@ -16,23 +16,28 @@ import PurchaseList from './invoice/view/purchase';
 import Categories from './item/views/category'
 import Units from './item/views/unit'
 import Types from './item/views/type'
+import Layout from './layouts/layout';
+import Sale from './invoice/view/sale';
+import SaleList from './invoice/view/salelist';
 function App() {
   let user = sessionStorage.getItem("User"); 
   return (
     <BrowserRouter>
-        <Route path="/" exact strict component={Login} />
-        <Route path="/registerUser" exact strict component={RegisterUser} />
-        <ProtectedRoute path="/purchaseInvoices" component={PurchaseList} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
-        <ProtectedRoute path="/roles" component={Role} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
-        <ProtectedRoute path="/users" component={UserList} auth={user ? user.Token !== "" ? "true" : "false" : "false"} />
-        <ProtectedRoute path="/items" component={Item} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
-        <ProtectedRoute path="/categories" component={Categories} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
-        <ProtectedRoute path="/units" component={Units} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
-        <ProtectedRoute path="/types" component={Types} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
-        <ProtectedRoute path="/collaborations" component={Collaboration} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
-        <ProtectedRoute path="/employees" component={Employee} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
-        <ProtectedRoute path="/storeHouses" component={StoreHouse} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
-        <ProtectedRoute path="/EP" component={EmployeePos} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
+        <Route path="/" exact component={Login} />
+        <Route path="/registerUser" exact strict component={RegisterUser}/>
+        <ProtectedRoute path="/purchaseInvoices" layout={Layout} component={PurchaseList} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
+        <ProtectedRoute path="/roles" layout={Layout} component={Role} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
+        <ProtectedRoute path="/users" layout={Layout} component={UserList} auth={user ? user.Token !== "" ? "true" : "false" : "false"} />
+        <ProtectedRoute path="/items"  layout={Layout} component={Item} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
+        <ProtectedRoute path="/categories" layout={Layout} component={Categories} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
+        <ProtectedRoute path="/units" layout={Layout} component={Units} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
+        <ProtectedRoute path="/types" layout={Layout} component={Types} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
+        <ProtectedRoute path="/collaborations" layout={Layout} component={Collaboration} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
+        <ProtectedRoute path="/employees"  layout={Layout} component={Employee} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
+        <ProtectedRoute path="/storeHouses" layout={Layout} component={StoreHouse} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
+        <ProtectedRoute path="/EP" layout={Layout} component={EmployeePos} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
+        <ProtectedRoute path="/sale" layout={Layout} component={Sale} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
+        <ProtectedRoute path="/salelist" layout={Layout} component={SaleList} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
     </BrowserRouter>
   );
 }

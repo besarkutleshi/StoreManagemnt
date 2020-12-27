@@ -171,7 +171,7 @@ export class UserList extends Component {
             return (
                 <div className="container-fluid">
                     <div className="row mt-5">
-                        <div className="col-sm-3">
+                        <div className="col-sm-2">
                             <Button variant="primary" onClick={this.handleShow} style={{width: "100%"}}>
                                 Insert User <Icon icon={checkSquareO}></Icon>
                             </Button>

@@ -29,10 +29,10 @@ export class Item extends Component {
             SupplierID: 0,
             Suppliers: [],
             Active: 'true',
-            PurchasePrice: 0,
-            SalePrice: 0,
+            PurchasePrice: '',
+            SalePrice: '',
             Description: '',
-            StockQuantity: 0,
+            StockQuantity: '',
             Submit: 'Register',
             IsLoading: false,
             Show: false
@@ -40,7 +40,7 @@ export class Item extends Component {
     }
 
     handleShow = () => this.setState({ Show: true });
-    handleClose = () => this.setState({ Show: false });
+    handleClose = () => this.setState({ Show: false,Barcode:'',Name:'',UnitID:0,CategoryId:0,TypeID:0,SupplierID:0,PurchasePrice:'',SalePrice:'',Description:'',StockQuantity:'',Submit:'Register' });
     handleBarcode = event => this.setState({ Barcode: event.target.value });
     handleName = event => this.setState({ Name: event.target.value });
     handleUnit = event => this.setState({ UnitID: event.target.value });
@@ -168,7 +168,7 @@ export class Item extends Component {
                                 this.state.Items.map(i => {
                                     const array = [
                                         i.barcode, i.name, i.purchasePrice, i.salePrice, i.category.name, i.unit.name, i.type.name, i.supplier.name, i.description,
-                                        <button onClick={this.updateModal.bind(this, i.id)} className="btn btn-primary">Update <Icon icon={checkSquareO} /></button>,
+                                        <button onClick={this.updateModal.bind(this, i.id)} data-toggle="modal" data-target="#myModal" className="btn btn-primary">Update <Icon icon={checkSquareO} /></button>,
                                         <button onClick={this.deleteItem.bind(this, i.barcode)} className="btn btn-danger">Delete <Icon icon={trashO} /></button>
                                     ]
                                     return array;

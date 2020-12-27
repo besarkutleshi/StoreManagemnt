@@ -33,7 +33,8 @@ export class Employee extends Component {
     }
 
     handleShow = () => this.setState({ Show: true });
-    handleClose = () => this.setState({ Show: false });
+    handleClose = () => this.setState({ Show: false,Name:'',Surname:'',Phone:'',Email:'',Street:'',City:'',PostalCode:'',Country:'',Submit:'Register'});
+    
     handleName = event => this.setState({ Name: event.target.value });
     handleSurname = event => this.setState({ Surname: event.target.value });
     handlePhone = event => this.setState({ Phone: event.target.value });

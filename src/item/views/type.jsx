@@ -26,7 +26,7 @@ export class Type extends Component {
         }
     }
 
-    handleClose = () => this.setState({Show:false});
+    handleClose = () => this.setState({Show:false,Name:'',Description:'',Submit:'Register'});
     handleShow = () => this.setState({Show:true});
     handleName = event => this.setState({ Name: event.target.value });
     handleDescription = event => this.setState({ Description: event.target.value });
@@ -99,10 +99,10 @@ export class Type extends Component {
     render() {
         let columns = ["ID", "Name", "Description", "Update", "Delete"]
         return (
-            <div className="container" style={{ marginTop: "30px" }}>
+            <div className="container-fluid" style={{ marginTop: "30px" }}>
                
-                <div className="row">
-                    <div className="col-sm-12">
+                <div className="row justify-content-center align-content-center">
+                    <div className="col-sm-10">
                         <Button variant="primary" onClick={this.handleShow} style={{width: "200px"}}>
                             Insert Item Type <Icon icon={checkSquareO}></Icon>
                         </Button>
@@ -112,8 +112,8 @@ export class Type extends Component {
                                 this.state.ItemTypes.map(d => {
                                     let array = [
                                         d.id, d.name, d.description,
-                                        <button className="btn btn-primary" onClick={this.updateModal.bind(this,d.id)} ><Icon icon={pencil}/></button>,
-                                        <button className="btn btn-danger" onClick={this.deleteType.bind(this,d.id)} ><Icon icon={trashO}/></button>
+                                        <button className="btn btn-primary" onClick={this.updateModal.bind(this,d.id)}>Update <Icon icon={pencil}/></button>,
+                                        <button className="btn btn-danger" onClick={this.deleteType.bind(this,d.id)}>Delete <Icon icon={trashO}/></button>
                                     ]
                                     return array;
                                 })

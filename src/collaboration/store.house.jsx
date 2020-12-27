@@ -31,7 +31,7 @@ export class StoreHouse extends Component {
 
     
     handleShow = () => this.setState({Show:true});
-    handleClose = () => this.setState({Show:false});
+    handleClose = () => this.setState({Show:false,Name:'',City:'',Phone:'',Description:'',Submit:'Register'});
     handleName = event => this.setState({Name:event.target.value});
     handleCity = event => this.setState({City:event.target.value});
     handlePhone = event => this.setState({Phone:event.target.value});
