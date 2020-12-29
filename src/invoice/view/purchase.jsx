@@ -314,7 +314,6 @@ export class PurchaseList extends Component {
 
     updateInvoiceBody = (id) => {
         let obj = this.state.Bodies.find(b => b.id === id);
-        console.log(obj);
         if(obj){
             this.setState({
                 BodyID:obj.id,

@@ -5,6 +5,7 @@ class InvoiceController{
     insertInvoice = async (obj,method) => {
         try{
             let response = await axios.post(Helper.url + `invoice/${method}`,obj,Helper.config);
+            console.log(response);
             return Helper.response(response);
         }catch(error){
             return false;
@@ -86,6 +87,24 @@ class InvoiceController{
     getTotalSaleToday = async () => {
         try{
             let response = await axios.get(Helper.url + `invoice/getTotalSaleToday`,Helper.config);
+            return response.data;
+        }catch(error){
+            return false;
+        }
+    }
+
+    getTotalPurchaseAll = async () => {
+        try{
+            let response = await axios.get(Helper.url + `invoice/getTotalPurchaseAll`,Helper.config);
+            return response.data;
+        }catch(error){
+            return false;
+        }
+    }
+
+    getTotalSaleAll = async () => {
+        try{
+            let response = await axios.get(Helper.url + `invoice/getTotalSaleAll`,Helper.config);
             return response.data;
         }catch(error){
             return false;
