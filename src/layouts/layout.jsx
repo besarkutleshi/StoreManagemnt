@@ -38,10 +38,10 @@ export class Layout extends Component {
                             class="fa fa-line-chart mr-1" aria-hidden="true"></i> Report's</a>
                         <ul class="collapse list-unstyled" id="pageSubmenu">
                             <li>
-                                <a href="#"><i class="fa fa-bar-chart mr-2" aria-hidden="true"></i> Entries Report</a>
+                                <a href="/enteriesReports"><i class="fa fa-bar-chart mr-2" aria-hidden="true"></i> Entries Report</a>
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-pie-chart mr-2" aria-hidden="true"></i> Exit's Report</a>
+                                <a href="/exitsReports"><i class="fa fa-pie-chart mr-2" aria-hidden="true"></i> Exit's Report</a>
                             </li>
                         </ul>
                     </li>

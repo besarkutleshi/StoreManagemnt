@@ -40,7 +40,7 @@ export class Item extends Component {
     }
 
     handleShow = () => this.setState({ Show: true });
-    handleClose = () => this.setState({ Show: false,Barcode:'',Name:'',UnitID:0,CategoryId:0,TypeID:0,SupplierID:0,PurchasePrice:'',SalePrice:'',Description:'',StockQuantity:'',Submit:'Register' });
+    handleClose = () => this.setState({ Show: false, Barcode: '', Name: '', UnitID: 0, CategoryId: 0, TypeID: 0, SupplierID: 0, PurchasePrice: '', SalePrice: '', Description: '', StockQuantity: '', Submit: 'Register' });
     handleBarcode = event => this.setState({ Barcode: event.target.value });
     handleName = event => this.setState({ Name: event.target.value });
     handleUnit = event => this.setState({ UnitID: event.target.value });
@@ -136,6 +136,7 @@ export class Item extends Component {
 
     insertItem = async event => {
         event.preventDefault();
+        alert('ss')
         let obj = {
             ID: this.state.ID, Barcode: this.state.Barcode, Name: this.state.Name, UnitID: this.state.UnitID, CategoryId: this.state.CategoryId, TypeID: this.state.TypeID, SupplierID: this.state.SupplierID,
             Active: this.state.Active, PurchasePrice: this.state.PurchasePrice, SalePrice: this.state.SalePrice, StockQuantity: this.state.StockQuantity, Description: this.state.Description
@@ -181,119 +182,119 @@ export class Item extends Component {
 
                 <div className="row">
                     <div class="modal fade" id="myModal">
-                            <div class="modal-dialog modal-lg modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        {`${this.state.Submit} Item`}
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    </div>
+                        <div class="modal-dialog modal-lg modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    {`${this.state.Submit} Item`}
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
 
+                                <form id="myForm" method="post" onSubmit={this.insertItem}>
                                     <div class="modal-body">
-                                        <form id="myForm" method="post" onSubmit={this.insertItem}>
-                                                <div className="container-fluid">
-                                                    <div className="row">
-                                                        <div className="col-sm-4 form-group">
-                                                            <label htmlFor="barcode">Barcode</label>
-                                                            <input id="barcode" type="text" className="form-control" placeholder="Barcode"
-                                                                value={this.state.Barcode} onChange={this.handleBarcode} />
-                                                        </div>
-                                                        <div className="col-sm-4 form-group">
-                                                            <label htmlFor="Name">Name</label>
-                                                            <input id="Name" type="text" className="form-control" placeholder="Name"
-                                                                value={this.state.Name} onChange={this.handleName} />
-                                                        </div>
-                                                        <div className="col-sm-4 form-group">
-                                                            <label htmlFor="Categories">Categories</label>
-                                                            <select className="form-control" value={this.state.CategoryId} onChange={this.handleCategory}>
-                                                                <option value="0">Not selected</option>
-                                                                {
-                                                                    this.state.Categories.map(c => {
-                                                                        return (
-                                                                            <option value={c.id}>{c.name}</option>
-                                                                        )
-                                                                    })
-                                                                }
-                                                            </select>
-                                                        </div>
-                                                        <div className="col-sm-4 form-group">
-                                                            <label htmlFor="Types">Types</label>
-                                                            <select className="form-control" value={this.state.TypeID} onChange={this.handleType}>
-                                                                <option value="0">Not selected</option>
-                                                                {
-                                                                    this.state.Types.map(emp => {
-                                                                        return (
-                                                                            <option value={emp.id}>{emp.name}</option>
-                                                                        )
-                                                                    })
-                                                                }
-                                                            </select>
-                                                        </div>
-                                                        <div className="col-sm-4 form-group">
-                                                            <label htmlFor="Units">Units</label>
-                                                            <select className="form-control" value={this.state.UnitID} onChange={this.handleUnit}>
-                                                                <option value="0">Not selected</option>
-                                                                {
-                                                                    this.state.Units.map(emp => {
-                                                                        return (
-                                                                            <option value={emp.id}>{emp.name}</option>
-                                                                        )
-                                                                    })
-                                                                }
-                                                            </select>
-                                                        </div>
-                                                        <div className="col-sm-4 form-group">
-                                                            <label htmlFor="Suppliers">Suppliers</label>
-                                                            <select className="form-control" value={this.state.SupplierID} onChange={this.handleSupplier}>
-                                                                <option value="0">Not selected</option>
-                                                                {
-                                                                    this.state.Suppliers.map(emp => {
-                                                                        return (
-                                                                            <option value={emp.id}>{emp.name}</option>
-                                                                        )
-                                                                    })
-                                                                }
-                                                            </select>
-                                                        </div>
-                                                        <div className="col-sm-4 form-group">
-                                                            <label htmlFor="Active">Active</label>
-                                                            <select className="form-control" value={this.state.Active} onChange={this.handleActive}>
-                                                                <option value="true">Yes</option>
-                                                                <option value="false">No</option>
-                                                            </select>
-                                                        </div>
-                                                        <div className="col-sm-4 form-group">
-                                                            <label htmlFor="purchase">Purchase Price</label>
-                                                            <input id="purchase" type="text" className="form-control" placeholder="Purchase Price"
-                                                                value={this.state.PurchasePrice} onChange={this.handlePurchasePrice} />
-                                                        </div>
-                                                        <div className="col-sm-4 form-group">
-                                                            <label htmlFor="Sale">Sale Price</label>
-                                                            <input id="Sale" type="text" className="form-control" placeholder="Sale Price"
-                                                                value={this.state.SalePrice} onChange={this.handleSalePrice} />
-                                                        </div>
-                                                        <div className="col-sm-4 form-group">
-                                                            <label htmlFor="Stock">Stock Quantity</label>
-                                                            <input id="Stock" type="text" className="form-control" placeholder="Stock Quantity"
-                                                                value={this.state.StockQuantity} onChange={this.handledStockQuantity} />
-                                                        </div>
-                                                    </div>
-                                                    <div className="row">
-                                                        <div className="col-sm-12 form-group">
-                                                            <label htmlFor="description">Description</label>
-                                                            <textarea rows="7" id="description" type="text" className="form-control" placeholder="Description"
-                                                                value={this.state.Description} onChange={this.handledDescription} />
-                                                        </div>
-                                                    </div>
+                                        <div className="container-fluid">
+                                            <div className="row">
+                                                <div className="col-sm-4 form-group">
+                                                    <label htmlFor="barcode">Barcode</label>
+                                                    <input id="barcode" type="text" className="form-control" placeholder="Barcode"
+                                                        value={this.state.Barcode} onChange={this.handleBarcode} />
                                                 </div>
-                                        </form>
+                                                <div className="col-sm-4 form-group">
+                                                    <label htmlFor="Name">Name</label>
+                                                    <input id="Name" type="text" className="form-control" placeholder="Name"
+                                                        value={this.state.Name} onChange={this.handleName} />
+                                                </div>
+                                                <div className="col-sm-4 form-group">
+                                                    <label htmlFor="Categories">Categories</label>
+                                                    <select className="form-control" value={this.state.CategoryId} onChange={this.handleCategory}>
+                                                        <option value="0">Not selected</option>
+                                                        {
+                                                            this.state.Categories.map(c => {
+                                                                return (
+                                                                    <option value={c.id}>{c.name}</option>
+                                                                )
+                                                            })
+                                                        }
+                                                    </select>
+                                                </div>
+                                                <div className="col-sm-4 form-group">
+                                                    <label htmlFor="Types">Types</label>
+                                                    <select className="form-control" value={this.state.TypeID} onChange={this.handleType}>
+                                                        <option value="0">Not selected</option>
+                                                        {
+                                                            this.state.Types.map(emp => {
+                                                                return (
+                                                                    <option value={emp.id}>{emp.name}</option>
+                                                                )
+                                                            })
+                                                        }
+                                                    </select>
+                                                </div>
+                                                <div className="col-sm-4 form-group">
+                                                    <label htmlFor="Units">Units</label>
+                                                    <select className="form-control" value={this.state.UnitID} onChange={this.handleUnit}>
+                                                        <option value="0">Not selected</option>
+                                                        {
+                                                            this.state.Units.map(emp => {
+                                                                return (
+                                                                    <option value={emp.id}>{emp.name}</option>
+                                                                )
+                                                            })
+                                                        }
+                                                    </select>
+                                                </div>
+                                                <div className="col-sm-4 form-group">
+                                                    <label htmlFor="Suppliers">Suppliers</label>
+                                                    <select className="form-control" value={this.state.SupplierID} onChange={this.handleSupplier}>
+                                                        <option value="0">Not selected</option>
+                                                        {
+                                                            this.state.Suppliers.map(emp => {
+                                                                return (
+                                                                    <option value={emp.id}>{emp.name}</option>
+                                                                )
+                                                            })
+                                                        }
+                                                    </select>
+                                                </div>
+                                                <div className="col-sm-4 form-group">
+                                                    <label htmlFor="Active">Active</label>
+                                                    <select className="form-control" value={this.state.Active} onChange={this.handleActive}>
+                                                        <option value="true">Yes</option>
+                                                        <option value="false">No</option>
+                                                    </select>
+                                                </div>
+                                                <div className="col-sm-4 form-group">
+                                                    <label htmlFor="purchase">Purchase Price</label>
+                                                    <input id="purchase" type="text" className="form-control" placeholder="Purchase Price"
+                                                        value={this.state.PurchasePrice} onChange={this.handlePurchasePrice} />
+                                                </div>
+                                                <div className="col-sm-4 form-group">
+                                                    <label htmlFor="Sale">Sale Price</label>
+                                                    <input id="Sale" type="text" className="form-control" placeholder="Sale Price"
+                                                        value={this.state.SalePrice} onChange={this.handleSalePrice} />
+                                                </div>
+                                                <div className="col-sm-4 form-group">
+                                                    <label htmlFor="Stock">Stock Quantity</label>
+                                                    <input id="Stock" type="text" className="form-control" placeholder="Stock Quantity"
+                                                        value={this.state.StockQuantity} onChange={this.handledStockQuantity} />
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <div className="col-sm-12 form-group">
+                                                    <label htmlFor="description">Description</label>
+                                                    <textarea rows="7" id="description" type="text" className="form-control" placeholder="Description"
+                                                        value={this.state.Description} onChange={this.handledDescription} />
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button id="submit" type="submit"  className="float-left btn btn-primary">{this.state.Submit} <Icon icon={checkSquareO}></Icon></button>
+                                        <button id="submit" type="submit" className="float-left btn btn-primary">{this.state.Submit} <Icon icon={checkSquareO}></Icon></button>
                                         <button className="btn btn-danger" data-dismiss="modal">Close <Icon icon={close} style={{ marginTop: "-10px" }}></Icon></button>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
         )

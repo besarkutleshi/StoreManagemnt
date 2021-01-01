@@ -124,6 +124,8 @@ export class PurchaseList extends Component {
 
     componentDidMount = async () => {
         this.SaveInvoice.disabled = true;
+        await this.getTotalPurchases();
+        await this.getTodayPurchase();
         await this.getInvoiceTypes();
         await this.getInvoices();
         await this.getItems();
@@ -358,12 +360,58 @@ export class PurchaseList extends Component {
         }
     }
 
+    getTotalPurchases = async () => {
+        let result = await invoiceCtrl.getTotalPurchaseAll();
+        $(this.totalAmount).text(result.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+    }
+
+    getTodayPurchase = async () => {
+        let result = await invoiceCtrl.getTotalPurchaseToday();
+        $(this.todayAmount).text(result.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+    }
+
     render() {
         let columns = ["Update", "Invoice Number", "Invoice Type", "Store", "Supplier", "Date", "Description", "Items", "Delete"]
         return (
             <div className="container-fluid">
 
                 <div className="row" ref={(l) => this.purchaseList = l}>
+                    <div className="col-sm-12 mb-3">
+                        <div className="row">
+                            <div className="col-sm-3">
+                                <div className="card">
+                                    <div className="card-body" style={{'box-shadow': '5px 5px 5px grey'}}>
+                                        <p className="text-center text-muted lead">Today Invoices Count</p>
+                                        <p className="text-center">{this.state.Invoices.filter(sl => sl.docDate.toString().split('T')[0] === (new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate()).toString()).length}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-sm-3">
+                                <div className="card">
+                                    <div className="card-body" style={{'box-shadow': '5px 5px  5px grey'}}>
+                                        <p className="text-center text-muted lead">Today Invoices Amount</p>
+                                        <p className="text-center" ref={(t) => this.todayAmount = t}></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-sm-3">
+                                <div className="card">
+                                    <div className="card-body" style={{'box-shadow': '5px 5px  5px grey'}}>
+                                        <p className="text-center text-muted lead">All Invoices Count</p>
+                                        <p className="text-center">{this.state.Invoices.length}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-sm-3">
+                                <div className="card">
+                                    <div className="card-body" style={{'box-shadow': '5px 5px  5px grey'}}>
+                                        <p className="text-center text-muted lead">All Invoices Amount</p>
+                                        <p className="text-center" ref={(all) => this.totalAmount = all}></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div className="col-sm-12">
                         <button onClick={this.handleShow} type="button" class="btn btn-primary" style={{ width: "200px" }}>
                             Insert Invoice <Icon icon={checkSquareO}></Icon>

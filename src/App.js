@@ -19,6 +19,8 @@ import Types from './item/views/type'
 import Layout from './layouts/layout';
 import Sale from './invoice/view/sale';
 import SaleList from './invoice/view/salelist';
+import EnteriesReports from './reporting/views/enteries';
+import ExitsReports from './reporting/views/exits';
 function App() {
   let user = sessionStorage.getItem("User"); 
   return (
@@ -38,6 +40,8 @@ function App() {
         <ProtectedRoute path="/EP" layout={Layout} component={EmployeePos} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
         <ProtectedRoute path="/sale" layout={Layout} component={Sale} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
         <ProtectedRoute path="/salelist" layout={Layout} component={SaleList} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
+        <ProtectedRoute path="/exitsReports" layout={Layout} component={ExitsReports} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
+        <ProtectedRoute path="/enteriesReports" layout={Layout} component={EnteriesReports} auth={user ? user.Token !== "" ? "true" : "false" : "false"}/>
     </BrowserRouter>
   );
 }

@@ -5,3 +5,14 @@ td {
 th {
     text-align: center;
 }
+
+#loader{
+    font-size: 30px;
+    width: 100px;
+    height: 100px;
+    margin-top: 28%;
+}
+
+.card{
+    background-color: #fff;
+}
