@@ -10,7 +10,7 @@ import ErrorAlert from '../ErrorAlert'
 import SuccessAlert from '../SuccessAlert'
 import Swal from 'sweetalert2'
 import { pencil } from 'react-icons-kit/fa/pencil';
-
+import Loader from '../helpers/loader';
 export class StoreHouse extends Component {
 
     constructor(props) {
@@ -45,7 +45,9 @@ export class StoreHouse extends Component {
     }
 
     componentDidMount = async () => {
+        this.setState({IsLoading:true})
         await this.getPos();
+        this.setState({IsLoading:false})
     }
 
     updateModal = (id) => {
@@ -103,6 +105,9 @@ export class StoreHouse extends Component {
 
     render() {
         let columns = ["ID", "NAME", "CITY", "PHONE", "DESCRIPTION", "UPDATE", "DELETE"]
+        if(this.state.IsLoading){
+            return <Loader />
+        }
         return (
             <div className="container-fluid mt-5">
                 <div class="row justify-content-center">

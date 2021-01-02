@@ -17,6 +17,7 @@ import $ from 'jquery'
 import { list } from 'react-icons-kit/icomoon/list';
 import 'selectize/dist/js/standalone/selectize.js'
 import 'selectize/dist/css/selectize.bootstrap3.css'
+import Loader from '../../helpers/loader'
 const SaleList = () => {
 
     const [salesList, setSaleList] = useState([]);
@@ -37,8 +38,10 @@ const SaleList = () => {
     const [todayAmount,setTodayAmount] = useState('')
     const [allAmount,setAllAmount] = useState('')
     const [submit, setSubmit] = useState('Register');
+    const [isLoading, setLoading] = useState(false);
 
     useEffect(async () => {
+        setLoading(true);
         let result = await invCtrl.getInvoices();
         if (result) {
             let invoices = result.filter(r => r.docType.description === "FATURE SHITJE");
@@ -52,6 +55,7 @@ const SaleList = () => {
         await getItems();
         await getSuppliers();
         await getStores();
+        setLoading(false);
     }, [])
 
 
@@ -218,7 +222,16 @@ const SaleList = () => {
         $("[data-dismiss=modal]").trigger({ type: "click" })
     }
 
+    const getTodayInvoices = () => {
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+    }
 
+    if(isLoading){
+        return <Loader />
+    }
     if (salesList.length > 0) {
         return (
             <div className="container-fluid">
@@ -229,7 +242,7 @@ const SaleList = () => {
                                 <div className="card">
                                     <div className="card-body" style={{'box-shadow': '5px 5px 5px grey'}}>
                                         <p className="text-center text-muted lead">Today Invoices Count</p>
-                                        <p className="text-center">{salesList.filter(sl => sl.docDate.toString().split('T')[0] === (new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate()).toString()).length}</p>
+                                        <p className="text-center">{salesList.filter(sl => sl.docDate.toString().split('T')[0] === new Date().getFullYear() + '-' + String(new Date().getMonth() + 1).padStart(2, '0') + '-' + String(new Date().getDate()).padStart(2, '0')).length}</p>
                                     </div>
                                 </div>
                             </div>

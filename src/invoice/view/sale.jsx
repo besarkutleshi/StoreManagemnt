@@ -18,6 +18,7 @@ import { trashO } from 'react-icons-kit/fa/trashO'
 import '../../css/table.css'
 import { close } from 'react-icons-kit/fa/close'
 import helpScript from '../../js/helpScript';
+import Loader from '../../helpers/loader'
 export class Sale extends Component {
 
     static id = 1;
@@ -40,7 +41,8 @@ export class Sale extends Component {
             Description: '',
             MaxID: '',
             Amount: 0.00,
-            state: ''
+            state: '',
+            IsLoading:false
         }
     }
 
@@ -85,10 +87,12 @@ export class Sale extends Component {
         //     })
         // });
         Sale.id = 1;
+        this.setState({IsLoading:true})
         await this.getItems();
         await this.getSuppliers();
         await this.getStores();
         await this.getMaxID();
+        this.setState({IsLoading:false})
     }
 
     insertBody = () => {
@@ -214,6 +218,9 @@ export class Sale extends Component {
     }
 
     render() {
+        if(this.state.IsLoading){
+            return <Loader />
+        }
         return (
             <div className="container-fluid">
                 <div className="row" style={{ marginTop: '-40px' }}>

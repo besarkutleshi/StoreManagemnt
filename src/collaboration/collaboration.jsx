@@ -9,7 +9,7 @@ import { close } from 'react-icons-kit/fa/close'
 import ErrorAlert from '../ErrorAlert'
 import SuccessAlert from '../SuccessAlert'
 import Swal from 'sweetalert2'
-
+import Loader from '../helpers/loader';
 export class Collaboration extends Component {
     constructor(props) {
         super(props)
@@ -44,7 +44,9 @@ export class Collaboration extends Component {
     }
 
     componentDidMount = async () => {
+        this.setState({IsLoading:true})
         await this.getCollaborations();
+        this.setState({IsLoading:false})
     }
 
     updateModal = (id) => {
@@ -104,6 +106,9 @@ export class Collaboration extends Component {
 
     render() {
         let columns = ["ID", "NAME", "CITY", "PHONE", "EMAIL", "DESCRIPTION", "UPDATE", "DELETE"];
+        if(this.state.IsLoading){
+            return <Loader />
+        }
         return (
             <div className="container-fluid mt-5">
                 <div className="row justify-content-center">

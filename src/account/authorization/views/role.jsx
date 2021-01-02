@@ -13,6 +13,8 @@ import ErrorAlert from '../../../ErrorAlert'
 import {users} from 'react-icons-kit/icomoon/users'
 import Helper from '../../../Helper'
 import Swal from 'sweetalert2'
+import $ from 'jquery'
+import Loader from '../../../helpers/loader'
 export class Role extends Component {
 
     constructor(props) {
@@ -27,7 +29,8 @@ export class Role extends Component {
             RoleCode:'',
             Description:'',
             Submit : 'Register',
-            UsersInRole:[]
+            UsersInRole:[],
+            IsLoading:false
         }
         this.getRoles = this.getRoles.bind(this);
     }
@@ -65,7 +68,10 @@ export class Role extends Component {
         }
     }
     componentDidMount = async () => {
+        $('#root').css('background-color','#fafafa')
+        this.setState({IsLoading:true})
         await this.getRoles();
+        this.setState({IsLoading:false})
     }
     registerSubmit = async event => {
         event.preventDefault();
@@ -127,34 +133,40 @@ export class Role extends Component {
     }
 
     render() {
+        if(this.state.IsLoading){
+            return (
+                <Loader />
+            )
+        }
         return (
-            <div className="container">
+            <div className="container-fluid">
                 <div className="row" style={{ marginBottom: "5px", marginTop: "20px" }}>
-                    <div className="col-sm-4 float-left">
+                    <div className="col-sm-2 float-left">
                         <Button variant="primary" onClick={this.handleShow} style={{width: "100%"}}>
                             Insert Role <Icon icon={checkSquareO}></Icon>
                         </Button>
                     </div>
                 </div>
 
-                <div className="row">
+                <div className="row mt-5">
                     {
                         this.state.Roles.map((role, key) => {
                             return (
-                                <div className="col-sm-12" style={{ width: "100%", marginBottom: "10px" }}>
-                                    <div className="card">
-                                        <div className="card-header">
-                                            {role.id}
-                                        </div>
+                                <div className="col-sm-4" style={{ width: "100%", marginBottom: "10px" }}>
+                                    <div className="card" style={{height:'200px'}}>
                                         <div className="card-body">
-                                            {role.name}
-                                        </div>
-                                        <div className="card-footer">
-                                            <button className="btn btn-dark" onClick={this.getUsersInRole.bind(this,role.id)}>Users in Role <Icon icon={users}></Icon></button>
-                                            &nbsp;&nbsp;
-                                            <button onClick={this.updateModal.bind(this,role.id)} className="btn btn-primary">Update <Icon icon={pencil}></Icon></button>
-                                            &nbsp;&nbsp;
-                                            <button className="btn btn-danger" onClick={this.deleteRole.bind(this,role.id)}>Delete <Icon icon={trashO}></Icon></button>
+                                            <h4 className="text-center">{role.name}</h4>
+                                            <hr/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <div className="text-center">
+                                                <button className="btn btn-dark" onClick={this.getUsersInRole.bind(this,role.id)}>Users in Role <Icon icon={users}></Icon></button>
+                                                &nbsp;&nbsp;
+                                                <button onClick={this.updateModal.bind(this,role.id)} className="btn btn-primary">Update <Icon icon={pencil}></Icon></button>
+                                                &nbsp;&nbsp;
+                                                <button className="btn btn-danger" onClick={this.deleteRole.bind(this,role.id)}>Delete <Icon icon={trashO}></Icon></button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

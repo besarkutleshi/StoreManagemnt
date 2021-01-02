@@ -14,6 +14,7 @@ import collaboration from '../../../collaboration/collaboration.js'
 import authorize from '../../authorization/controllers/authorization.controller'
 import ErrorAlert from '../../../ErrorAlert'
 import Swal from 'sweetalert2'
+import Loader from '../../../helpers/loader'
 export class UserList extends Component {
 
     constructor(props) {
@@ -162,9 +163,7 @@ export class UserList extends Component {
     render() {
         if(this.state.IsLoading){
             return(
-                <div class="spinner-border" role="status">
-                    <span class="sr-only">Loading...</span>
-                </div>
+                <Loader />
             )
         }
         if(this.state.Users.length > 0){

@@ -10,6 +10,7 @@ import SuccessAlert from '../../SuccessAlert'
 import Swal from 'sweetalert2'
 import { pencil } from 'react-icons-kit/fa/pencil';
 import unitCtrl from '../controllers/item.controller';
+import Loader from '../../helpers/loader'
 export class Unit extends Component {
     constructor(props) {
         super(props)
@@ -20,7 +21,8 @@ export class Unit extends Component {
             Name: '',
             Description: '',
             Show: false,
-            Submit: 'Register'
+            Submit: 'Register',
+            IsLoading:false
         }
     }
     
@@ -37,7 +39,9 @@ export class Unit extends Component {
     }
 
     componentDidMount = async () => {
+        this.setState({IsLoading:true})
         await this.getUnits();
+        this.setState({IsLoading:false})
     }
 
 
@@ -95,6 +99,9 @@ export class Unit extends Component {
     }
     render() {
         let columns = ["ID", "Name", "Description", "Update", "Delete"]
+        if(this.state.IsLoading){
+            return <Loader />
+        }
         return (
             <div className="container-fluid" style={{ marginTop: "30px" }}>
 

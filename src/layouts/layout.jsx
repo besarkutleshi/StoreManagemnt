@@ -131,9 +131,30 @@ export class Layout extends Component {
         } else {
             return (
                 <ul class="nav navbar-nav ml-auto">
-                    <li id="logout" class="nav-item active">
+
+                <li id="logout" class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"> <span className="mr-2" style={{fontSize:'20px'}}>Welcome {user.userName} </span> </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a href="#" class="dropdown-item"><i class="fa fa-user" aria-hidden="true"></i> My Profile</a>
+                        <div class="dropdown-divider"></div>
+                        <a onClick={this.logout} class="dropdown-item" href="/"> <i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+                    </div>
+                </li>
+                    
+                    {/* <li id="logout" class="nav-item">
+                        <div class="w3-dropdown-hover" style={{backgroundColor:'#fff'}}>
+                            <span style={{fontSize:'20px'}}>Welcome {user.userName}</span>
+                            <div class="w3-dropdown-content w3-bar-block w3-card-4">
+                                <a href="#" class="w3-bar-item w3-button">My Profile</a>
+                                <a href="#" class="w3-bar-item w3-button">Link 2</a>
+                                <a href="#" class="w3-bar-item w3-button">Link 3</a>
+                            </div>
+                        </div>
+                    </li> */}
+
+                    {/* <li id="logout" class="nav-item active">
                         <a onClick={this.logout} class="nav-link" href="/">Logout</a>
-                    </li>
+                    </li> */}
                 </ul>
             )
         }

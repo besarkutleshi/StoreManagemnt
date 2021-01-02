@@ -9,6 +9,7 @@ import { close } from 'react-icons-kit/fa/close'
 import ErrorAlert from '../ErrorAlert'
 import SuccessAlert from '../SuccessAlert'
 import Swal from 'sweetalert2'
+import Loader from '../helpers/loader';
 export class Employee extends Component {
 
     constructor(props) {
@@ -54,7 +55,9 @@ export class Employee extends Component {
     }
 
     componentDidMount = async () => {
+        this.setState({IsLoading:true})
         await this.getEmployees();
+        this.setState({IsLoading:false})
     }
 
     updateModal = (id) => {
@@ -118,6 +121,9 @@ export class Employee extends Component {
 
     render() {
         let columns = ["ID", "NAME", "SURNAME", "EMAIL", "PHONE", "COUNTRY", "CITY", "STREET", "POSTAL CODE", "UPDATE", "DELETE"]
+        if(this.state.IsLoading){
+            return <Loader />
+        }
         return (
             <div className="container-fluid mt-5">
                 <div className="row justify-content-around">

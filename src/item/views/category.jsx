@@ -1,4 +1,3 @@
-
 import MUI from 'mui-datatables'
 import React, { Component } from 'react'
 import { checkSquareO } from 'react-icons-kit/fa/checkSquareO'
@@ -11,7 +10,7 @@ import SuccessAlert from '../../SuccessAlert'
 import Swal from 'sweetalert2'
 import { pencil } from 'react-icons-kit/fa/pencil';
 import catCtrl from '../controllers/item.controller'
-
+import Loader from '../../helpers/loader'
 export class Category extends Component {
     constructor(props) {
         super(props)
@@ -22,7 +21,8 @@ export class Category extends Component {
             Name: '',
             Description: '',
             Show:false,
-            Submit:'Register'
+            Submit:'Register',
+            IsLoading:false
         }
     }
 
@@ -42,7 +42,9 @@ export class Category extends Component {
     }
 
     componentDidMount = async () => {
+        this.setState({IsLoading:true})
         await this.getCategories();
+        this.setState({IsLoading:false})
     }
     
     updateModal = (id) =>{
@@ -99,6 +101,9 @@ export class Category extends Component {
 
     render() {
         let columns = ["ID", "Name", "Description", "Update", "Delete"]
+        if(this.state.IsLoading){
+            return <Loader />
+        }
         return (
             <div className="container-fluid" style={{ marginTop: "30px" }}>
                

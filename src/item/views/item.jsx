@@ -10,6 +10,7 @@ import ErrorAlert from '../../ErrorAlert'
 import SuccessAlert from '../../SuccessAlert'
 import Swal from 'sweetalert2'
 import collaboration from '../../collaboration/collaboration.js'
+import Loader from '../../helpers/loader'
 export class Item extends Component {
 
     constructor(props) {
@@ -81,11 +82,13 @@ export class Item extends Component {
     }
 
     componentDidMount = async () => {
+        this.setState({IsLoading:true})
         await this.getItems('getItems');
         await this.getItems('getCategoires');
         await this.getItems('getUnits');
         await this.getItems('getTypes');
         await this.getSuppliers();
+        this.setState({IsLoading:false})
     }
 
     updateModal = (id) => {
@@ -155,6 +158,9 @@ export class Item extends Component {
 
     render() {
         let cols = ["Barcode", "Name", "Pruchase Price", "Sale Price", "Category", "Unit", "Type", "Supplier", "Description", "Update", "Delete"]
+        if(this.state.IsLoading){
+            return <Loader />
+        }
         return (
             <div className="container-fluid">
 

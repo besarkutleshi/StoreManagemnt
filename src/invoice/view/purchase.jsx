@@ -16,6 +16,7 @@ import 'selectize/dist/css/selectize.bootstrap3.css'
 import $ from 'jquery'
 import docCtrl from '../../docs/controllers/docs.controller'
 import { list } from 'react-icons-kit/icomoon/list';
+import Loader from '../../helpers/loader';
 export class PurchaseList extends Component {
 
     static Bodies = []
@@ -46,7 +47,9 @@ export class PurchaseList extends Component {
             ShowBodies: false,
             Submit: 'Register',
             IsLoading: false,
-            MaxID: ''
+            MaxID: '',
+            TotalAmount:0,
+            TodayAmount:0
         }
     }
 
@@ -123,6 +126,7 @@ export class PurchaseList extends Component {
     }
 
     componentDidMount = async () => {
+        this.setState({IsLoading:true})
         this.SaveInvoice.disabled = true;
         await this.getTotalPurchases();
         await this.getTodayPurchase();
@@ -132,6 +136,7 @@ export class PurchaseList extends Component {
         await this.getSuppliers();
         await this.getStores();
         await this.getMaxID();
+        this.setState({IsLoading:false})
     }
 
     updateModal = (id) => {
@@ -286,7 +291,7 @@ export class PurchaseList extends Component {
         }
     }
 
-    insertBody = async event => {
+    insertBodyOne = async event => {
         event.preventDefault();
         let id = await invoiceCtrl.getInvoicesMaxID("getInvoicesBodyMaxID");
         let obj = {ID:this.state.BodyID,HeaderID:this.state.HeaderID,ItemID:this.state.ItemID,Quantity:this.state.Quantity,Price:this.state.Price,Discount:this.state.Discount};
@@ -362,16 +367,21 @@ export class PurchaseList extends Component {
 
     getTotalPurchases = async () => {
         let result = await invoiceCtrl.getTotalPurchaseAll();
-        $(this.totalAmount).text(result.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        this.setState({TotalAmount:result.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")})
     }
 
     getTodayPurchase = async () => {
         let result = await invoiceCtrl.getTotalPurchaseToday();
-        $(this.todayAmount).text(result.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        this.setState({
+            TodayAmount:result.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        })
     }
 
     render() {
         let columns = ["Update", "Invoice Number", "Invoice Type", "Store", "Supplier", "Date", "Description", "Items", "Delete"]
+        if(this.state.IsLoading){
+            return <Loader/>
+        }
         return (
             <div className="container-fluid">
 
@@ -382,7 +392,7 @@ export class PurchaseList extends Component {
                                 <div className="card">
                                     <div className="card-body" style={{'box-shadow': '5px 5px 5px grey'}}>
                                         <p className="text-center text-muted lead">Today Invoices Count</p>
-                                        <p className="text-center">{this.state.Invoices.filter(sl => sl.docDate.toString().split('T')[0] === (new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate()).toString()).length}</p>
+                                        <p className="text-center">{this.state.Invoices.filter(sl => sl.docDate.toString().split('T')[0] === new Date().getFullYear() + '-' + String(new Date().getMonth() + 1).padStart(2, '0') + '-' + String(new Date().getDate()).padStart(2, '0') ).length}</p>
                                     </div>
                                 </div>
                             </div>
@@ -390,7 +400,7 @@ export class PurchaseList extends Component {
                                 <div className="card">
                                     <div className="card-body" style={{'box-shadow': '5px 5px  5px grey'}}>
                                         <p className="text-center text-muted lead">Today Invoices Amount</p>
-                                        <p className="text-center" ref={(t) => this.todayAmount = t}></p>
+                                        <p className="text-center" ref={(t) => this.todayAmount = t}>{this.state.TodayAmount}</p>
                                     </div>
                                 </div>
                             </div>
@@ -406,7 +416,7 @@ export class PurchaseList extends Component {
                                 <div className="card">
                                     <div className="card-body" style={{'box-shadow': '5px 5px  5px grey'}}>
                                         <p className="text-center text-muted lead">All Invoices Amount</p>
-                                        <p className="text-center" ref={(all) => this.totalAmount = all}></p>
+                                        <p className="text-center" ref={(all) => this.totalAmount = all}>{this.state.TotalAmount}</p>
                                     </div>
                                 </div>
                             </div>
@@ -707,7 +717,7 @@ export class PurchaseList extends Component {
                     </div>
                 </div>
            
-                <form onSubmit={this.insertBody}>
+                <form onSubmit={this.insertBodyOne}>
                     <div className="row">
                         <div class="modal fade modal-center" id="insertBody">
                             <div class="modal-dialog modal-lg modal-dialog-centered">
