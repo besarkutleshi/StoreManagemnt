@@ -49,25 +49,19 @@ export class Sale extends Component {
     getItems = async () => {
         let result = await itemController.getAll("getItems");
         if (result) {
-            this.setState({ Items: result }, () => {
-                $(this.searchItem).selectize();
-            })
+            this.setState({ Items: result })
         }
     }
     getSuppliers = async () => {
         let result = await collaboration.getCollaborations();
         if (result) {
-            this.setState({ Suppliers: result }, () => {
-                $(this.Supplier).selectize();
-            });
+            this.setState({ Suppliers: result });
         }
     }
     getStores = async () => {
         let result = await collaboration.getPoss();
         if (result) {
-            this.setState({ Stores: result }, () => {
-                $(this.Store).selectize();
-            });
+            this.setState({ Stores: result })
         }
     }
     getMaxID = async () => {
@@ -93,6 +87,9 @@ export class Sale extends Component {
         await this.getStores();
         await this.getMaxID();
         this.setState({IsLoading:false})
+        $(this.searchItem).selectize();
+        $(this.Store).selectize();
+        $(this.Supplier).selectize();
     }
 
     insertBody = () => {
@@ -230,7 +227,7 @@ export class Sale extends Component {
                                 <div className="card" style={{ width: "150px" }}>
                                     <div className="card-body d-flex">
                                         <img src={saveimage} width="50px" height="50px" alt="" />
-                                        <button className="btn" onClick={() => {
+                                        <button ref={(s) => this.save = s} className="btn" onClick={() => {
                                             this.Pay.value = this.state.Amount.toFixed(2)
                                         }} data-toggle="modal" data-target="#payModal">
                                             SAVE
@@ -239,7 +236,7 @@ export class Sale extends Component {
                                 </div>
                             </div>
                             <div className="col-sm-6">
-                                <h3 className="float-right" ref={(a) => this.amount = a} style={{ fontSize: '150px' }} >{this.state.Amount.toFixed(2)}</h3>
+                                <h3 className="float-right" ref={(a) => this.amount = a} style={{ fontSize: '120px' }} >{this.state.Amount.toFixed(2)}</h3>
                             </div>
                         </div>
                         <div className="row">

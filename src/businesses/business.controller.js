@@ -16,6 +16,17 @@ class BusinessController{
     }
 
 
+    getProfile = async (username) => {
+        try{
+            let response = await axios.get(Helper.url + `business/getUserProfile/${username}`,Helper.config);
+            return response.data;
+        }catch(error){
+            Helper.manageErrorResponse(error);
+            return error;
+        }
+    }
+
+
 }
 
 export default new BusinessController();

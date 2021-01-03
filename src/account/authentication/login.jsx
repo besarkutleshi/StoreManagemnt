@@ -24,7 +24,7 @@ export class Login extends Component {
         event.preventDefault();
         let result = await authentication.login({Username:this.state.Username,Password:this.state.Password,BusinessCode:this.state.BusinessCode});
         if(result === true){
-            window.location = "items"
+            window.location = "salelist"
         }
     }
 

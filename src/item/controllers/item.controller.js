@@ -8,6 +8,7 @@ class ItemController {
             let response = await axios.get(helper.url + `item/${method}`,helper.config);
             return response.data;
         } catch (error) {
+            helper.manageErrorResponse(error)
             return null;
         }
     }
@@ -17,6 +18,7 @@ class ItemController {
             let response = await axios.post(helper.url + `item/${method}`,obj,helper.config);
             return helper.response(response);
         } catch (error) {
+            helper.manageErrorResponse(error)
             return false;
         }
     }
@@ -26,6 +28,7 @@ class ItemController {
             let response = await axios.delete(helper.url + `item/${method}/${id}`,helper.config);
             return helper.response(response);
         } catch (error) {
+            helper.manageErrorResponse(error)
             return false;
         }
     }
@@ -35,6 +38,7 @@ class ItemController {
             let response = await axios.patch(helper.url + `item/${method}`,obj,helper.config);
             return helper.response(response);
         } catch (error) {
+            helper.manageErrorResponse(error)
             return false;
         }
     }

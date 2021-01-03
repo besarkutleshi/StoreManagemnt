@@ -5,9 +5,9 @@ class InvoiceController{
     insertInvoice = async (obj,method) => {
         try{
             let response = await axios.post(Helper.url + `invoice/${method}`,obj,Helper.config);
-            console.log(response);
             return Helper.response(response);
         }catch(error){
+            Helper.manageErrorResponse(error);
             return false;
         }
     }
@@ -17,6 +17,7 @@ class InvoiceController{
             let response = await axios.delete(Helper.url + `invoice/${method}/${id}`,Helper.config);
             return Helper.response(response);
         }catch(error){
+            Helper.manageErrorResponse(error);
             return false;
         }
     }
@@ -26,6 +27,7 @@ class InvoiceController{
             let response = await axios.patch(Helper.url + `invoice/${method}`,obj,Helper.config);
             return Helper.response(response);
         }catch(error){
+            Helper.manageErrorResponse(error);
             return false;
         }
     }
@@ -35,6 +37,7 @@ class InvoiceController{
             let response = await axios.get(Helper.url + 'invoice/getInvoices',Helper.config);
             return response.data;
         }catch(error){
+            Helper.manageErrorResponse(error);
             return false;
         }
     }
@@ -44,6 +47,7 @@ class InvoiceController{
             let response = await axios.get(Helper.url + `invoice/getInvoicesBody/${headerid}`,Helper.config);
             return response.data;
         }catch(error){
+            Helper.manageErrorResponse(error);
             return false;
         }
     }
@@ -53,6 +57,7 @@ class InvoiceController{
             let response = await axios.get(Helper.url + `invoice/${method}`,Helper.config);
             return response.data;
         }catch(error){
+            Helper.manageErrorResponse(error);
             return false;
         }
     }
@@ -62,6 +67,7 @@ class InvoiceController{
             let response = await axios.get(Helper.url + `invoice/getPurchasesToday`,Helper.config);
             return response.data;
         }catch(error){
+            Helper.manageErrorResponse(error);
             return false;
         }
     }
@@ -71,6 +77,7 @@ class InvoiceController{
             let response = await axios.get(Helper.url + `invoice/getSaleToday`,Helper.config);
             return response.data;
         }catch(error){
+            Helper.manageErrorResponse(error);
             return false;
         }
     }
@@ -80,6 +87,7 @@ class InvoiceController{
             let response = await axios.get(Helper.url + `invoice/getTotalPurchaseToday`,Helper.config);
             return response.data;
         }catch(error){
+            Helper.manageErrorResponse(error);
             return false;
         }
     }
@@ -89,6 +97,7 @@ class InvoiceController{
             let response = await axios.get(Helper.url + `invoice/getTotalSaleToday`,Helper.config);
             return response.data;
         }catch(error){
+            Helper.manageErrorResponse(error);
             return false;
         }
     }
@@ -98,6 +107,7 @@ class InvoiceController{
             let response = await axios.get(Helper.url + `invoice/getTotalPurchaseAll`,Helper.config);
             return response.data;
         }catch(error){
+            Helper.manageErrorResponse(error);
             return false;
         }
     }
@@ -107,6 +117,7 @@ class InvoiceController{
             let response = await axios.get(Helper.url + `invoice/getTotalSaleAll`,Helper.config);
             return response.data;
         }catch(error){
+            Helper.manageErrorResponse(error);
             return false;
         }
     }

@@ -16,3 +16,12 @@ th {
 .card{
     background-color: #fff;
 }
+
+#cardBlock{
+    margin-bottom: 15px;
+}
+
+#comments{
+    font-size:100px; 
+    color:black;
+}

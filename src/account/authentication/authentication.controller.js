@@ -44,11 +44,12 @@ class Authentication{
             }
             return result.data;
         } catch (error) {
+            Helper.manageErrorResponse(error);
             return error;
         }
     }
 
-    async logOut(){
+    logOut(){
         sessionStorage.clear();
         window.location = 'login';
     }
@@ -58,6 +59,7 @@ class Authentication{
             let response = await axios.get(Helper.url + 'authentication/getUsers',Helper.config);
             return response.data;
         } catch (error) {
+            Helper.manageErrorResponse(error);
             return false;
         }
     }
@@ -68,6 +70,7 @@ class Authentication{
             let response = await axios.post(Helper.url + 'authentication/updateUser',obj,Helper.config);
             return Helper.response(response);
         } catch (error) {
+            Helper.manageErrorResponse(error);
             return false;
         }
     }
@@ -77,6 +80,7 @@ class Authentication{
             let response = await axios.delete(Helper.url + `authentication/deleteUser/${id}`,Helper.config);
             return Helper.response(response);
         } catch (error) {
+            Helper.manageErrorResponse(error);
             return false;
         }
     }

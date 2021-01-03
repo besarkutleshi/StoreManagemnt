@@ -90,10 +90,36 @@ export class Layout extends Component {
             return (
                 <ul class="list-unstyled components mb-5" style={{ marginTop: "20px" }}>
                     <li class="">
-                        <a href="/sale" data-toggle="collapse" aria-expanded="false"><i class="fa fa-money mr-2" aria-hidden="true"></i>Sale</a>
+                        <a  href="#saleSubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-money mr-2" aria-hidden="true"></i>Sale</a>
+                        <ul class="collapse list-unstyled" id="saleSubMenu">
+                            <li>
+                                <a href="/sale"><i class="fa fa-bar-chart mr-2" aria-hidden="true"></i> Sale</a>
+                            </li>
+                            <li>
+                                <a href="/salelist"><i class="fa fa-pie-chart mr-2" aria-hidden="true"></i> Sale's List</a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="/purchaseInvoices"><i class="fa fa-shopping-cart mr-2" aria-hidden="true"></i>Purchase's</a>
+                    </li>
+                    <li>
+                        <a href="#item" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                            <i class="fa fa-bars" aria-hidden="true"></i> Item</a>
+                        <ul class="collapse list-unstyled" id="item">
+                            <li>
+                                <a href="/items"><i class="fa fa-bars" aria-hidden="true"></i> Item's</a>
+                            </li>
+                            <li>
+                                <a href="/categories"><i class="fa fa-cog" aria-hidden="true"></i> Categorie's</a>
+                            </li>
+                            <li>
+                                <a href="/types"><i class="fa fa-cog" aria-hidden="true"></i> Type's</a>
+                            </li>
+                            <li>
+                                <a href="/units"><i class="fa fa-cog" aria-hidden="true"></i> Unit's</a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             )
@@ -135,7 +161,7 @@ export class Layout extends Component {
                 <li id="logout" class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"> <span className="mr-2" style={{fontSize:'20px'}}>Welcome {user.userName} </span> </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a href="#" class="dropdown-item"><i class="fa fa-user" aria-hidden="true"></i> My Profile</a>
+                        <a href="/myProfile" class="dropdown-item"><i class="fa fa-user" aria-hidden="true"></i> Profile</a>
                         <div class="dropdown-divider"></div>
                         <a onClick={this.logout} class="dropdown-item" href="/"> <i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
                     </div>

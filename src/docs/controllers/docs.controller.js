@@ -7,6 +7,7 @@ class DocController{
             let response = await axios.get(Helper.url + 'doc/getDocs');
             return response.data;
         } catch (error) {
+            Helper.manageErrorResponse(error);
             return false;
         }
     }
@@ -19,6 +20,7 @@ class DocController{
             }
             return false;
         } catch (error) {
+            Helper.manageErrorResponse(error);
             return false;
         }
     }
@@ -28,6 +30,7 @@ class DocController{
             let response = await axios.delete(Helper.url + `doc/deleteDoc/${id}`);
             return Helper.response(response);
         } catch (error) {
+            Helper.manageErrorResponse(error);
             return false;
         }
     }
@@ -40,6 +43,7 @@ class DocController{
             }
             return false;
         } catch (error) {
+            Helper.manageErrorResponse(error);
             return false;
         }
     }

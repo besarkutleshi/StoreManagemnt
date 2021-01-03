@@ -7,7 +7,8 @@ class ReportingController {
             let response = await axios.get(Helper.url + `Reporting/${method}`,Helper.config);
             return response.data;
         }catch(error){
-            console.log(error);
+            Helper.manageErrorResponse(error);
+            return null;
         }
     }
 }

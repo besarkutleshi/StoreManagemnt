@@ -34,6 +34,13 @@ class Helper{
             $('#activeItems').show();
         }
     }
+
+    manageErrorResponse = (error) => {
+        const message = error.message;
+        if(message.toString().includes('401')){
+            window.location = 'sessionExpired';
+        }
+    }
 }
 
 export default new Helper();

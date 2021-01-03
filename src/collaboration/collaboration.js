@@ -1,5 +1,4 @@
 import axios from 'axios'
-import ErrorAlert from '../ErrorAlert.js';
 import Helper from '../Helper.js'
 class Collaboration{
     
@@ -9,7 +8,7 @@ class Collaboration{
             let response = await axios.post(Helper.url + 'collaboration/insertCollaboration',obj,Helper.config);
             return Helper.response(response);
         } catch (error) {
-            ErrorAlert(error.message);
+            Helper.manageErrorResponse(error);
             return false;
         }
     }
@@ -19,7 +18,7 @@ class Collaboration{
             let response = await axios.get(Helper.url + `collaboration/deleteCollaboration/${id}`,Helper.config);
             return Helper.response(response);
         } catch (error) {
-            ErrorAlert(error.message);
+            Helper.manageErrorResponse(error)
             return false;
         }
     }
@@ -29,7 +28,7 @@ class Collaboration{
             let response = await axios.post(Helper.url + 'collaboration/updateCollaboration',obj,Helper.config);
             return Helper.response(response);
         } catch (error) {
-            ErrorAlert(error.message);
+            Helper.manageErrorResponse(error)
             return false;
         }
     }
@@ -39,7 +38,7 @@ class Collaboration{
             let response = await axios.get(Helper.url + 'collaboration/getCollaborations',Helper.config);
             return response.data;
         } catch (error) {
-            ErrorAlert(error.message);
+            Helper.manageErrorResponse(error)
             return false;
         }
     }
@@ -49,7 +48,7 @@ class Collaboration{
             let response = await axios.get(Helper.url + `collaboration/getCollaboration/${id}`,Helper.config);
             return response.data;
         } catch (error) {
-            ErrorAlert(error.message);
+            Helper.manageErrorResponse(error)
             return false;
         }
     }
@@ -59,7 +58,7 @@ class Collaboration{
             let response = await axios.post(Helper.url + 'collaboration/insertEmployee',obj,Helper.config);
             return Helper.response(response);
         } catch (error) {
-            ErrorAlert(error.message);
+            Helper.manageErrorResponse(error)
             return false;
         }
     }
@@ -69,7 +68,7 @@ class Collaboration{
             let response = await axios.get(Helper.url + `collaboration/deleteEmployee/${id}`,Helper.config);
             return Helper.response(response);
         } catch (error) {
-            ErrorAlert(error.message);
+            Helper.manageErrorResponse(error)
             return false;
         }
     }
@@ -79,7 +78,7 @@ class Collaboration{
             let response = await axios.patch(Helper.url + 'collaboration/updateEmployee',obj,Helper.config);
             return Helper.response(response);
         } catch (error) {
-            ErrorAlert(error.message);
+            Helper.manageErrorResponse(error)
             return false;
         }
     }
@@ -89,7 +88,7 @@ class Collaboration{
             let response = await axios.get(Helper.url + 'collaboration/getEmployees',Helper.config);
             return response.data;
         } catch (error) {
-            ErrorAlert(error.message);
+            Helper.manageErrorResponse(error)
             return false;
         }
     }
@@ -99,7 +98,7 @@ class Collaboration{
             let response = await axios.get(Helper.url + `collaboration/getEmployee/${id}`,Helper.config);
             return response.data;
         } catch (error) {
-            ErrorAlert(error.message);
+            Helper.manageErrorResponse(error)
             return false;
         }
     }
@@ -109,7 +108,7 @@ class Collaboration{
             let response = await axios.get(Helper.url + `collaboration/getEmployee/${name}`,Helper.config);
             return response.data;
         } catch (error) {
-            ErrorAlert(error.message);
+            Helper.manageErrorResponse(error)
             return false;
         }
     }
@@ -119,7 +118,7 @@ class Collaboration{
             let response = await axios.post(Helper.url + 'collaboration/insertEP',obj,Helper.config);
             return Helper.response(response);
         } catch (error) {
-            ErrorAlert(error.message);
+            Helper.manageErrorResponse(error)
             return false;
         }
     }
@@ -129,7 +128,7 @@ class Collaboration{
             let response = await axios.get(Helper.url + `collaboration/deleteEP/${id}`,Helper.config);
             return Helper.response(response);
         } catch (error) {
-            ErrorAlert(error.message);
+            Helper.manageErrorResponse(error)
             return false;
         }
     }
@@ -139,7 +138,7 @@ class Collaboration{
             let response = await axios.post(Helper.url + 'collaboration/updateEP',obj,Helper.config);
             return Helper.response(response);
         } catch (error) {
-            ErrorAlert(error.message);
+            Helper.manageErrorResponse(error)
             return false;
         }
     }
@@ -149,7 +148,7 @@ class Collaboration{
             let response = await axios.get(Helper.url + 'collaboration/getEP',Helper.config);
             return response.data;
         } catch (error) {
-            ErrorAlert(error.message);
+            Helper.manageErrorResponse(error)
             return false;
         }
     }
@@ -159,7 +158,7 @@ class Collaboration{
             let response = await axios.get(Helper.url + `collaboration/getEP/${id}`,Helper.config);
             return response.data;
         } catch (error) {
-            ErrorAlert(error.message);
+            Helper.manageErrorResponse(error)
             return false;
         }
     }
@@ -169,7 +168,7 @@ class Collaboration{
             let response = await axios.post(Helper.url + 'collaboration/insertPOS',obj,Helper.config);
             return Helper.response(response);
         } catch (error) {
-            ErrorAlert(error.message);
+            Helper.manageErrorResponse(error)
             return false;
         }
     }
@@ -179,7 +178,7 @@ class Collaboration{
             let response = await axios.get(Helper.url + `collaboration/deletePOS/${id}`,Helper.config);
             return Helper.response(response);
         } catch (error) {
-            ErrorAlert(error.message);
+            Helper.manageErrorResponse(error)
             return false;
         }
     }
@@ -189,7 +188,7 @@ class Collaboration{
             let response = await axios.patch(Helper.url + 'collaboration/updatePOS',obj,Helper.config);
             return Helper.response(response);
         } catch (error) {
-            ErrorAlert(error.message);
+            Helper.manageErrorResponse(error)
             return false;
         }
     }
@@ -199,7 +198,7 @@ class Collaboration{
             let response = await axios.get(Helper.url + 'collaboration/getAllPos',Helper.config);
             return response.data;
         } catch (error) {
-            ErrorAlert(error.message);
+            Helper.manageErrorResponse(error)
             return false;
         }
     }

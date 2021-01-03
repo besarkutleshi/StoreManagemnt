@@ -8,6 +8,7 @@ class AuthorizeController{
             let result = await axios.get(Helper.url + 'authorize/getRoles',Helper.config);
             return result.data;
         } catch (error) {
+            Helper.manageErrorResponse(error);
             return false;
         }
     }
@@ -17,6 +18,7 @@ class AuthorizeController{
             let response = await axios.get(Helper.url + `authorize/getRole${id}`,Helper.config);
             return response.data;
         } catch (error) {
+            Helper.manageErrorResponse(error);
             return false;
         }
     }
@@ -27,6 +29,7 @@ class AuthorizeController{
             Helper.response(response);
             return false;
         } catch (error) {
+            Helper.manageErrorResponse(error);
             return false;
         }
     }
@@ -36,6 +39,7 @@ class AuthorizeController{
             let response = await axios.post(Helper.url + 'authorize/updateRole',obj,Helper.config);
             Helper.response(response);
         } catch (error) {
+            Helper.manageErrorResponse(error);
             return false;
         }
     }
@@ -45,6 +49,7 @@ class AuthorizeController{
             let response = await axios.get(Helper.url + `authorize/deleteRole/${id}`,Helper.config);
             return Helper.response(response);
         } catch (error) {
+            Helper.manageErrorResponse(error);
             return false;
         }
     }
@@ -54,6 +59,7 @@ class AuthorizeController{
             let response = await axios.get(Helper.url + `authorize/getUserRoles/${userid}`,Helper.config);
             return response.data;
         } catch (error) {
+            Helper.manageErrorResponse(error);
             return false;
         }
     }
@@ -63,6 +69,7 @@ class AuthorizeController{
             let response = await axios.post(Helper.url + 'authorize/insertUserRole',userRoles,Helper.config);
             return Helper.response(response);
         } catch (error) {
+            Helper.manageErrorResponse(error);
             return false;
         }
     }
@@ -72,6 +79,7 @@ class AuthorizeController{
             let response = await axios.get(Helper.url + `authorize/getUsersInRole/${roleid}`,Helper.config);
             return response.data;
         } catch (error) {
+            Helper.manageErrorResponse(error);
             return false;
         }
     }
@@ -81,6 +89,7 @@ class AuthorizeController{
             let response = await axios.post(Helper.url + 'authorize/insertUsersInRole',userRoles,Helper.config);
             return Helper.response(response);
         } catch (error) {
+            Helper.manageErrorResponse(error);
             return false;
         }
     }

@@ -47,7 +47,6 @@ const SaleList = () => {
             let invoices = result.filter(r => r.docType.description === "FATURE SHITJE");
             setSaleList(invoices);
         }
-        $('#bodies').hide();
         result = await invCtrl.getTotalSaleToday();
         setTodayAmount(result)
         result = await invCtrl.getTotalSaleAll();
@@ -347,7 +346,7 @@ const SaleList = () => {
                     </div>
                 </div>
             
-                <div className="row" id="bodies">
+                <div className="row" id="bodies" style={{display:'none'}}>
                     <div className="col-sm-12">
                         <button className="btn btn-primary mr-3 mb-2" onClick={showhide.bind(this,true)}><Icon icon={list} />  Invoice List</button>
                         <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#insertBody" style={{ width: "200px" }}>
