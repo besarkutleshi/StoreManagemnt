@@ -17,6 +17,7 @@ import $ from 'jquery'
 import docCtrl from '../../docs/controllers/docs.controller'
 import { list } from 'react-icons-kit/icomoon/list';
 import Loader from '../../helpers/loader';
+import language from '../controller/language'
 export class PurchaseList extends Component {
 
     static Bodies = []
@@ -391,7 +392,7 @@ export class PurchaseList extends Component {
                             <div className="col-sm-3">
                                 <div className="card">
                                     <div className="card-body" style={{'box-shadow': '5px 5px 5px grey'}}>
-                                        <p className="text-center text-muted lead">Today Invoices Count</p>
+                                        <p id="todayInvoicesCount" className="text-center text-muted lead">Today Invoices Count</p>
                                         <p className="text-center">{this.state.Invoices.filter(sl => sl.docDate.toString().split('T')[0] === new Date().getFullYear() + '-' + String(new Date().getMonth() + 1).padStart(2, '0') + '-' + String(new Date().getDate()).padStart(2, '0') ).length}</p>
                                     </div>
                                 </div>
@@ -399,7 +400,7 @@ export class PurchaseList extends Component {
                             <div className="col-sm-3">
                                 <div className="card">
                                     <div className="card-body" style={{'box-shadow': '5px 5px  5px grey'}}>
-                                        <p className="text-center text-muted lead">Today Invoices Amount</p>
+                                        <p id="todayInvoicesAmount" className="text-center text-muted lead">Today Invoices Amount</p>
                                         <p className="text-center" ref={(t) => this.todayAmount = t}>{this.state.TodayAmount}</p>
                                     </div>
                                 </div>
@@ -407,7 +408,7 @@ export class PurchaseList extends Component {
                             <div className="col-sm-3">
                                 <div className="card">
                                     <div className="card-body" style={{'box-shadow': '5px 5px  5px grey'}}>
-                                        <p className="text-center text-muted lead">All Invoices Count</p>
+                                        <p id="allInvoicesCount" className="text-center text-muted lead">All Invoices Count</p>
                                         <p className="text-center">{this.state.Invoices.length}</p>
                                     </div>
                                 </div>
@@ -415,7 +416,7 @@ export class PurchaseList extends Component {
                             <div className="col-sm-3">
                                 <div className="card">
                                     <div className="card-body" style={{'box-shadow': '5px 5px  5px grey'}}>
-                                        <p className="text-center text-muted lead">All Invoices Amount</p>
+                                        <p id="allInvoicesAmount" className="text-center text-muted lead">All Invoices Amount</p>
                                         <p className="text-center" ref={(all) => this.totalAmount = all}>{this.state.TotalAmount}</p>
                                     </div>
                                 </div>

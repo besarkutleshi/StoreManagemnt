@@ -73,6 +73,7 @@ export class Role extends Component {
         await this.getRoles();
         this.setState({IsLoading:false})
     }
+
     registerSubmit = async event => {
         event.preventDefault();
         let result;
@@ -85,6 +86,7 @@ export class Role extends Component {
             ErrorAlert(`Not ${this.state.Submit}`);
         }
     }
+    
     updateModal = (id) => {
         let role = this.state.Roles.filter(r => r.id === id);
         this.setState({
@@ -142,7 +144,7 @@ export class Role extends Component {
             <div className="container-fluid">
                 <div className="row" style={{ marginBottom: "5px", marginTop: "20px" }}>
                     <div className="col-sm-2 float-left">
-                        <Button variant="primary" onClick={this.handleShow} style={{width: "100%"}}>
+                        <Button id="btnInsertRole" variant="primary" onClick={this.handleShow} style={{width: "100%"}}>
                             Insert Role <Icon icon={checkSquareO}></Icon>
                         </Button>
                     </div>
@@ -159,13 +161,12 @@ export class Role extends Component {
                                             <hr/>
                                             <br/>
                                             <br/>
-                                            <br/>
                                             <div className="text-center">
                                                 <button className="btn btn-dark" onClick={this.getUsersInRole.bind(this,role.id)}>Users in Role <Icon icon={users}></Icon></button>
                                                 &nbsp;&nbsp;
                                                 <button onClick={this.updateModal.bind(this,role.id)} className="btn btn-primary">Update <Icon icon={pencil}></Icon></button>
                                                 &nbsp;&nbsp;
-                                                <button className="btn btn-danger" onClick={this.deleteRole.bind(this,role.id)}>Delete <Icon icon={trashO}></Icon></button>
+                                                <button id={`btnDeleteRole${role.id}`} className="btn btn-danger" onClick={this.deleteRole.bind(this,role.id)}>Delete <Icon icon={trashO}></Icon></button>
                                             </div>
                                         </div>
                                     </div>
@@ -211,7 +212,7 @@ export class Role extends Component {
                                     </div>
                                 </Modal.Body>
                                 <Modal.Footer>
-                                    <button id="submit" type="submit" className="float-left btn btn-primary">{this.state.Submit} <Icon icon={checkSquareO}></Icon></button>
+                                    <button id="insertRole" type="submit" className="float-left btn btn-primary">{this.state.Submit} <Icon icon={checkSquareO}></Icon></button>
                                     <Button className="btn btn-danger" onClick={this.handleClose}>Close <Icon icon={close} style={{marginTop:"-10px"}}></Icon></Button>
                                 </Modal.Footer>
                             </form>

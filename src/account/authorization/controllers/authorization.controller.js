@@ -27,7 +27,7 @@ class AuthorizeController{
         try {
             let response = await axios.post(Helper.url + 'authorize/insertRole',obj,Helper.config);
             Helper.response(response);
-            return false;
+            return true;
         } catch (error) {
             Helper.manageErrorResponse(error);
             return false;
@@ -37,7 +37,7 @@ class AuthorizeController{
     async updateRole(obj){
         try {
             let response = await axios.post(Helper.url + 'authorize/updateRole',obj,Helper.config);
-            Helper.response(response);
+            return Helper.response(response);
         } catch (error) {
             Helper.manageErrorResponse(error);
             return false;

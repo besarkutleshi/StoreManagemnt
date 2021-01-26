@@ -7,7 +7,7 @@ class Helper{
                 Authorization: `Bearer ${JSON.parse(sessionStorage.getItem("User")) ? JSON.parse(sessionStorage.getItem("User")).token : ''}`
             }
         }
-        this.url = 'https://localhost:44355/api/';
+        this.url = 'http://menaxhimi.depos.com/api/';
     }
 
     

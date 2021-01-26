@@ -6,7 +6,7 @@ class Authentication{
 
     async login(loginModel){
         try {
-            let result = await axios.post(Helper.url + 'authentication/login',loginModel);
+            let result = await axios.post(Helper.url + 'Authentication/login',loginModel);
             if(result.status === 200){
                 let user = result.data;
                 sessionStorage.clear();

@@ -18,6 +18,8 @@ import { list } from 'react-icons-kit/icomoon/list';
 import 'selectize/dist/js/standalone/selectize.js'
 import 'selectize/dist/css/selectize.bootstrap3.css'
 import Loader from '../../helpers/loader'
+import language from '../controller/language'
+
 const SaleList = () => {
 
     const [salesList, setSaleList] = useState([]);
@@ -227,7 +229,7 @@ const SaleList = () => {
         var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
         var yyyy = today.getFullYear();
     }
-
+    
     if(isLoading){
         return <Loader />
     }
@@ -240,7 +242,7 @@ const SaleList = () => {
                             <div className="col-sm-3">
                                 <div className="card">
                                     <div className="card-body" style={{'box-shadow': '5px 5px 5px grey'}}>
-                                        <p className="text-center text-muted lead">Today Invoices Count</p>
+                                        <p id="todayInvoicesCount" className="text-center text-muted lead"> Today Invoices Count</p>
                                         <p className="text-center">{salesList.filter(sl => sl.docDate.toString().split('T')[0] === new Date().getFullYear() + '-' + String(new Date().getMonth() + 1).padStart(2, '0') + '-' + String(new Date().getDate()).padStart(2, '0')).length}</p>
                                     </div>
                                 </div>
@@ -248,7 +250,7 @@ const SaleList = () => {
                             <div className="col-sm-3">
                                 <div className="card">
                                     <div className="card-body" style={{'box-shadow': '5px 5px  5px grey'}}>
-                                        <p className="text-center text-muted lead">Today Invoices Amount</p>
+                                        <p id="todayInvoicesAmount" className="text-center text-muted lead"> Today Invoices Amount</p>
                                         <p className="text-center">{todayAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} &euro;</p>
                                     </div>
                                 </div>
@@ -256,7 +258,7 @@ const SaleList = () => {
                             <div className="col-sm-3">
                                 <div className="card">
                                     <div className="card-body" style={{'box-shadow': '5px 5px  5px grey'}}>
-                                        <p className="text-center text-muted lead">All Invoices Count</p>
+                                        <p id="allInvoicesCount" className="text-center text-muted lead"> All Invoices Count</p>
                                         <p className="text-center">{salesList.length}</p>
                                     </div>
                                 </div>
@@ -264,7 +266,7 @@ const SaleList = () => {
                             <div className="col-sm-3">
                                 <div className="card">
                                     <div className="card-body" style={{'box-shadow': '5px 5px  5px grey'}}>
-                                        <p className="text-center text-muted lead">All Invoices Amount</p>
+                                        <p id="allInvoicesAmount" className="text-center text-muted lead"> All Invoices Amount</p>
                                         <p className="text-center">{allAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} &euro;</p>
                                     </div>
                                 </div>
@@ -285,7 +287,7 @@ const SaleList = () => {
                                     return array;
                                 })
                             }
-                            columns={["Update", "Invoice Number", "Invoice Type", "Store", "Supplier", "Date", "Description", "Items", "Delete"]}
+                            columns={localStorage.getItem("lang") === 'sq' ? language.sq.columns : language.en.columns}
                         />
                     </div>
                 </div>

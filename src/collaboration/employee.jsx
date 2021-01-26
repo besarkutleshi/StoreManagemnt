@@ -128,7 +128,7 @@ export class Employee extends Component {
             <div className="container-fluid mt-5">
                 <div className="row justify-content-around">
                     <div className="col-sm-12">
-                        <Button variant="primary" onClick={this.handleShow} style={{ width: "200px" }}>
+                        <Button id="btnInsert" variant="primary" onClick={this.handleShow} style={{ width: "200px" }}>
                             Insert Employee <Icon icon={checkSquareO}></Icon>
                         </Button>
                         <MUIDataTable className="mt-2"
@@ -167,43 +167,43 @@ export class Employee extends Component {
                                         <div className="col-sm-6 form-group">
                                             <label htmlFor="Name">Name</label>
                                             <input id="Name" type="text" className="form-control" placeholder="Name"
-                                                value={this.state.Name} onChange={this.handleName} />
+                                                value={this.state.Name} onChange={this.handleName} required />
                                         </div>
                                         <div className="col-sm-6 form-group">
                                             <label htmlFor="Surname">Surname</label>
                                             <input id="Surname" type="text" className="form-control" placeholder="Surname"
-                                                value={this.state.Surname} onChange={this.handleSurname} />
+                                                value={this.state.Surname} onChange={this.handleSurname} required />
                                         </div>
                                         <div className="col-sm-6 form-group">
                                             <label htmlFor="Phone">Phone</label>
                                             <input id="Phone" type="text" className="form-control" placeholder="Phone"
-                                                value={this.state.Phone} onChange={this.handlePhone} />
+                                                value={this.state.Phone} onChange={this.handlePhone} required />
                                         </div>
                                         <div className="col-sm-6 form-group">
                                             <label htmlFor="Email">Email</label>
                                             <input id="Email" type="text" className="form-control" placeholder="Email"
-                                                value={this.state.Email} onChange={this.handleEmail} />
+                                                value={this.state.Email} onChange={this.handleEmail} required />
                                         </div>
                                         <div className="col-sm-6 form-group">
                                             <label htmlFor="Street">Street</label>
                                             <input id="Street" type="text" className="form-control" placeholder="Street"
-                                                value={this.state.Street} onChange={this.handleStreet} />
+                                                value={this.state.Street} onChange={this.handleStreet} required />
                                         </div>
 
                                         <div className="col-sm-6 form-group">
                                             <label htmlFor="City">City</label>
                                             <input id="City" type="text" className="form-control" placeholder="City"
-                                                value={this.state.City} onChange={this.handleCity} />
+                                                value={this.state.City} onChange={this.handleCity} required />
                                         </div>
                                         <div className="col-sm-6 form-group">
                                             <label htmlFor="Country">Country</label>
                                             <input id="Country" type="text" className="form-control" placeholder="Country"
-                                                value={this.state.Country} onChange={this.handleCountry} />
+                                                value={this.state.Country} onChange={this.handleCountry} required />
                                         </div>
                                         <div className="col-sm-6 form-group">
                                             <label htmlFor="Postal">Postal Code</label>
                                             <input id="Postal" type="text" className="form-control" placeholder="Postal Code"
-                                                value={this.state.PostalCode} onChange={this.handlePostalCode} />
+                                                value={this.state.PostalCode} onChange={this.handlePostalCode} required />
                                         </div>
                                     </div>
                                     <div className="row">
@@ -216,7 +216,7 @@ export class Employee extends Component {
                                 </div>
                             </Modal.Body>
                             <Modal.Footer>
-                                <button id="submit" type="submit" className="float-left btn btn-primary">{this.state.Submit} <Icon icon={checkSquareO}></Icon></button>
+                                <button id="btnInsertEmployee" type="submit" className="float-left btn btn-primary">{this.state.Submit} <Icon icon={checkSquareO}></Icon></button>
                                 <Button className="btn btn-danger" onClick={this.handleClose}>Close <Icon icon={close} style={{ marginTop: "-10px" }}></Icon></Button>
                             </Modal.Footer>
                         </form>

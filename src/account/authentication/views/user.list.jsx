@@ -171,7 +171,7 @@ export class UserList extends Component {
                 <div className="container-fluid">
                     <div className="row mt-5">
                         <div className="col-sm-2">
-                            <Button variant="primary" onClick={this.handleShow} style={{width: "100%"}}>
+                            <Button id="btnInsertUser" variant="primary" onClick={this.handleShow} style={{width: "100%"}}>
                                 Insert User <Icon icon={checkSquareO}></Icon>
                             </Button>
                         </div>
@@ -223,7 +223,7 @@ export class UserList extends Component {
                                             </div>
                                             <div className="col-sm-6 form-group">
                                                 <label htmlFor="employess">Employess</label>
-                                                <select className="form-control" value={this.state.EmployeeID} onChange={this.handleEmployeeID}>
+                                                <select id="employee" className="form-control" value={this.state.EmployeeID} onChange={this.handleEmployeeID}>
                                                     <option value="0">Not selected</option>
                                                     {
                                                         this.state.Employees.map(emp => {
@@ -236,7 +236,7 @@ export class UserList extends Component {
                                             </div>
                                             <div className="col-sm-6 form-group">
                                                 <label htmlFor="roles">Roles</label>
-                                                <select className="form-control" value={this.state.RoleID} onChange={this.handleRoleID}>
+                                                <select id="role" className="form-control" value={this.state.RoleID} onChange={this.handleRoleID}>
                                                     <option value="0">Not selected</option>
                                                     {
                                                         this.state.Roles.map(emp => {

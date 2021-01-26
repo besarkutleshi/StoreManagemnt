@@ -26,7 +26,7 @@ function App() {
   let user = sessionStorage.getItem("User"); 
   return (
     <BrowserRouter>
-        <Route path="/" exact component={Index} />
+        <Route path="/" exact component={Login} />
         <Route path="/login" exact component={Login} />
         <Route path="/sessionExpired" exact component={SessionExpired} />
         <Route path="/registerUser" exact strict component={RegisterUser}/>

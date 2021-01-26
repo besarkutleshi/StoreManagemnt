@@ -45,7 +45,7 @@ const Index = () => {
                         </button>
                         <div class="collapse navbar-collapse justify-content-end" id="navbar-wd">
                             <ul class="navbar-nav">
-                                <li><a class="nav-link active" style={{ background: '#f2184f', color: '#fff' }} href="/login">Login</a></li>
+                                <li><a id="login" class="nav-link active" style={{ background: '#f2184f', color: '#fff' }} href="/login">Login</a></li>
                                 <li><a class="nav-link active" style={{ background: '#f2184f', color: '#fff' }} href="/registerUser">Register</a></li>
                             </ul>
                         </div>
